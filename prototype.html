@@ -130,6 +130,74 @@ body{display:flex;justify-content:center;min-height:100vh;}
 .tool{display:inline-flex;align-items:center;gap:5px;background:var(--brand-tint);color:var(--brand);font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--brand-tint-2);}
 .no-tools{display:inline-flex;align-items:center;gap:6px;background:var(--green-tint);color:#0F5A30;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;}
 
+/* ===== Flow type badge ===== */
+.flow-type-row{display:flex;align-items:center;gap:8px;padding:6px 20px 4px;}
+.flow-type-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand);color:#fff;font-size:10px;font-weight:800;padding:5px 10px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase;}
+.flow-type-badge .code{background:rgba(255,255,255,.22);padding:2px 6px;border-radius:999px;font-size:9px;}
+.flow-type-badge.f1{background:var(--brand);}
+.flow-type-badge.f2{background:#0F5A50;}
+.flow-type-badge.f3{background:#735C0A;}
+.flow-type-badge.f4{background:#5B3B8B;}
+.flow-type-badge.f5{background:var(--green);}
+.flow-type-badge.f6{background:var(--red);}
+.flow-type-desc{font-size:11px;color:var(--ink-3);font-weight:600;}
+
+/* ===== F2: Auto-check banner ===== */
+.autocheck-card{background:linear-gradient(180deg,#E1F4F0 0%,#F7FAFA 100%);border:1.5px solid #6FB5A5;border-radius:18px;padding:18px;margin:0 20px;}
+.autocheck-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.autocheck-head .ic{width:36px;height:36px;border-radius:10px;background:#0F5A50;color:#fff;display:grid;place-items:center;font-size:18px;}
+.autocheck-head .title{font-size:13px;font-weight:800;color:#0F5A50;letter-spacing:.04em;text-transform:uppercase;}
+.autocheck-head .sub{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:2px;}
+.autocheck-readout{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.autocheck-readout .item{background:#fff;border:1px solid #C8E2DC;border-radius:10px;padding:10px 12px;}
+.autocheck-readout .item .l{font-size:10px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.autocheck-readout .item .v{font-size:20px;font-weight:800;color:#0F5A50;margin-top:3px;letter-spacing:-.01em;}
+.autocheck-readout .item .n{font-size:10px;color:var(--ink-3);font-weight:600;margin-top:2px;}
+.autocheck-readout .item.warn{background:#FFF7E8;border-color:#F5D9A6;}
+.autocheck-readout .item.warn .v{color:#8B5A0A;}
+.countdown-bar{height:6px;background:#fff;border:1px solid #C8E2DC;border-radius:3px;overflow:hidden;margin:8px 0;}
+.countdown-bar > i{display:block;height:100%;background:#0F5A50;width:0;transition:width 5s linear;}
+.autocheck-foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-3);font-weight:600;}
+.flag-btn{background:#fff;border:1.5px solid var(--red);color:var(--red);font-size:12px;font-weight:700;padding:8px 14px;border-radius:999px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
+.flag-btn:active{background:var(--red-tint);}
+
+/* ===== F3: Skip-friendly card ===== */
+.skipfriendly-card{background:#FFF7E8;border:1.5px dashed #E8941A;border-radius:14px;padding:14px;margin:8px 20px 0;display:flex;gap:12px;align-items:flex-start;}
+.skipfriendly-card .ic{font-size:22px;flex-shrink:0;}
+.skipfriendly-card .body{flex:1;}
+.skipfriendly-card .title{font-size:13.5px;font-weight:800;color:#8B5A0A;line-height:1.3;}
+.skipfriendly-card .sub{font-size:12px;color:#735C0A;margin-top:3px;font-weight:600;line-height:1.45;}
+
+/* ===== F4: Skill-tier badge ===== */
+.skill-card{background:#F3EEFA;border:1.5px solid #C9B8E8;border-radius:14px;padding:14px;margin:8px 20px 0;}
+.skill-head{display:flex;align-items:center;gap:10px;}
+.skill-head .ic{width:32px;height:32px;border-radius:10px;background:#5B3B8B;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:800;flex-shrink:0;}
+.skill-head .title{font-size:13.5px;font-weight:800;color:#5B3B8B;}
+.skill-head .tier{background:#5B3B8B;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;margin-left:auto;letter-spacing:.04em;text-transform:uppercase;}
+.skill-sub{font-size:12px;color:#3F3458;margin-top:6px;font-weight:600;line-height:1.45;}
+.skill-shortcut-btn{display:flex;justify-content:space-between;align-items:center;width:100%;background:#fff;border:1.5px solid #5B3B8B;color:#5B3B8B;font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;margin-top:10px;cursor:pointer;font-family:inherit;}
+.skill-shortcut-btn:active{background:#F3EEFA;}
+
+/* ===== F5: Issue-close confirm pattern (used on success) ===== */
+.close-confirm-banner{background:var(--green-tint);border:1.5px solid #B7DFC8;border-radius:14px;padding:14px;margin:8px 20px 0;display:flex;gap:12px;align-items:flex-start;}
+.close-confirm-banner .ic{font-size:22px;flex-shrink:0;}
+.close-confirm-banner .body{flex:1;}
+.close-confirm-banner .title{font-size:13.5px;font-weight:800;color:#0F5A30;line-height:1.3;}
+.close-confirm-banner .sub{font-size:12px;color:#0F5A30;margin-top:3px;font-weight:600;line-height:1.45;}
+
+/* ===== F6: Escalation banner ===== */
+.escalate-banner{background:var(--red-tint);border:1.5px solid #F2C9C9;border-radius:14px;padding:14px;margin:8px 20px 0;display:flex;gap:12px;align-items:flex-start;}
+.escalate-banner .ic{font-size:22px;flex-shrink:0;}
+.escalate-banner .body{flex:1;}
+.escalate-banner .title{font-size:13.5px;font-weight:800;color:var(--red-d);line-height:1.3;}
+.escalate-banner .sub{font-size:12px;color:var(--red-d);margin-top:3px;font-weight:600;line-height:1.45;}
+
+/* ===== Skip-step prominent button ===== */
+.skip-step-wrap{padding:14px 20px 6px;display:flex;justify-content:center;}
+.skip-step-btn{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px dashed var(--line-2);color:var(--ink-3);font-family:inherit;font-size:13px;font-weight:700;padding:11px 18px;border-radius:14px;cursor:pointer;transition:.15s;}
+.skip-step-btn:hover{border-color:var(--ink-3);color:var(--ink-2);}
+.skip-step-btn:active{background:var(--surface);}
+
 .solution{background:var(--green-tint);border:1px solid #B7DFC8;border-radius:12px;padding:12px 14px;font-size:13.5px;color:#0F5A30;line-height:1.5;font-weight:600;}
 .solution.warning{background:var(--amber-tint);border-color:#F5D9A6;color:#7C4A0A;}
 
@@ -574,9 +642,6 @@ body{display:flex;justify-content:center;min-height:100vh;}
             <line x1="58" y1="412" x2="262" y2="412" stroke="#7AABC4" stroke-width="2"/>
             <rect x="70" y="478" width="180" height="7" rx="3" fill="#193458"/>
             <circle cx="100" cy="478" r="1.5" fill="#fff"/><circle cx="130" cy="478" r="1.5" fill="#fff"/><circle cx="160" cy="478" r="1.5" fill="#fff"/><circle cx="190" cy="478" r="1.5" fill="#fff"/><circle cx="220" cy="478" r="1.5" fill="#fff"/>
-            <!-- gasping fish -->
-            <g transform="translate(120, 432)"><ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#193458"/><polygon points="-11,0 -17,-5 -17,5" fill="#193458"/><circle cx="10" cy="0" r="3" fill="#fff" stroke="#193458" stroke-width="1.5"/><circle cx="14" cy="-3" r="1.5" fill="#fff" stroke="#193458" stroke-width="1"/></g>
-            <g transform="translate(190, 436)"><ellipse cx="0" cy="0" rx="9" ry="4.5" fill="#193458"/><polygon points="-9,0 -14,-4 -14,4" fill="#193458"/></g>
             <!-- DO badge -->
             <rect x="170" y="384" width="88" height="24" rx="12" fill="#D64545" filter="url(#dropShadow)"/>
             <circle cx="183" cy="396" r="3.5" fill="#fff"/>
@@ -1053,19 +1118,6 @@ body{display:flex;justify-content:center;min-height:100vh;}
           <rect x="40" y="40" width="240" height="160" rx="8" fill="#EEF2F8" stroke="#193458" stroke-width="2.5"/>
           <rect x="44" y="76" width="232" height="120" rx="4" fill="#B8D4E3"/>
           <line x1="44" y1="76" x2="276" y2="76" stroke="#7AABC4" stroke-width="2"/>
-          <g transform="translate(110, 88)">
-            <ellipse cx="0" cy="0" rx="14" ry="7" fill="#193458"/>
-            <polygon points="-14,0 -22,-6 -22,6" fill="#193458"/>
-            <circle cx="6" cy="-2" r="1.5" fill="#fff"/>
-            <circle cx="14" cy="0" r="3" fill="#fff" stroke="#193458" stroke-width="1.5"/>
-            <circle cx="20" cy="-4" r="2" fill="#fff" stroke="#193458" stroke-width="1"/>
-          </g>
-          <g transform="translate(180, 92)">
-            <ellipse cx="0" cy="0" rx="12" ry="6" fill="#193458"/>
-            <polygon points="-12,0 -19,-5 -19,5" fill="#193458"/>
-            <circle cx="5" cy="-2" r="1.5" fill="#fff"/>
-            <circle cx="12" cy="0" r="2.5" fill="#fff" stroke="#193458" stroke-width="1.5"/>
-          </g>
           <rect x="60" y="186" width="200" height="10" rx="3" fill="#193458"/>
           <circle cx="80" cy="191" r="1.5" fill="#fff"/><circle cx="110" cy="191" r="1.5" fill="#fff"/><circle cx="140" cy="191" r="1.5" fill="#fff"/><circle cx="170" cy="191" r="1.5" fill="#fff"/><circle cx="200" cy="191" r="1.5" fill="#fff"/><circle cx="230" cy="191" r="1.5" fill="#fff"/>
           <circle cx="110" cy="170" r="3" fill="#fff" stroke="#7AABC4" stroke-width="1.5">
@@ -1136,14 +1188,65 @@ body{display:flex;justify-content:center;min-height:100vh;}
 
   <!-- ============ DIAGNOSTIC STEP (data-driven) ============ -->
   <section class="screen" id="s-step">
-    <div class="statusbar"><a class="back" onclick="backFromStep()">‹</a><span id="stepCounter">Step 1 of 6</span><span class="skip" style="padding:0;font-size:13px" onclick="nextStep()" data-i18n="skip">Skip</span></div>
+    <div class="statusbar"><a class="back" onclick="backFromStep()">‹</a><span id="stepCounter">Step 1 of 6</span><span style="width:18px"></span></div>
     <div class="eqchip" id="stepEqchip"><span class="dot brand"></span><span id="stepEq">Aeration Tank · AT-01</span></div>
+
+    <!-- Flow type badge -->
+    <div class="flow-type-row" id="flowTypeRow">
+      <span class="flow-type-badge" id="flowTypeBadge"><span class="code">F1</span><span id="flowTypeName">Standard guided</span></span>
+      <span class="flow-type-desc" id="flowTypeDesc">Walk through each step</span>
+    </div>
+
     <div class="stephead">
       <span class="steptype" data-i18n="diagnose">Diagnose</span>
       <div class="dots" id="stepDots"></div>
       <button class="listen">🔊</button>
     </div>
     <div class="scroll" id="stepScroll">
+
+      <!-- Flow-type-specific section (only one is shown at a time) -->
+      <div id="ftAutocheck" style="display:none" class="autocheck-card">
+        <div class="autocheck-head">
+          <div class="ic">🤖</div>
+          <div>
+            <div class="title" data-i18n="ft_auto_title">Auto-check · system reading</div>
+            <div class="sub" id="ftAutoSub">Header pressure + flow on the blower line</div>
+          </div>
+        </div>
+        <div class="autocheck-readout" id="ftAutoReadout"></div>
+        <div class="countdown-bar"><i id="ftAutoTimer"></i></div>
+        <div class="autocheck-foot">
+          <span data-i18n="ft_auto_advance">Continues in 5 sec</span>
+          <button class="flag-btn" onclick="flagAutocheck()">🚩 <span data-i18n="ft_auto_flag">Looks wrong</span></button>
+        </div>
+      </div>
+
+      <div id="ftSkipFriendly" style="display:none" class="skipfriendly-card">
+        <span class="ic">💛</span>
+        <div class="body">
+          <div class="title" data-i18n="ft_skip_title">It's OK to skip this one</div>
+          <div class="sub" data-i18n="ft_skip_sub">Visual checks like this can be tricky in low light. Skip won't be held against you — we'll move to the next cause.</div>
+        </div>
+      </div>
+
+      <div id="ftSkill" style="display:none" class="skill-card">
+        <div class="skill-head">
+          <div class="ic">★</div>
+          <div class="title" data-i18n="ft_skill_title">Skill required</div>
+          <span class="tier" id="ftSkillTier">Intermediate</span>
+        </div>
+        <div class="skill-sub" data-i18n="ft_skill_sub">This check needs you to inspect the probe and use a manual DO kit. Experienced operators can skip the on-screen scaffolding.</div>
+        <button class="skill-shortcut-btn" onclick="useShortcut()"><span data-i18n="ft_skill_shortcut">I've done this before — skip ahead</span><span>›</span></button>
+      </div>
+
+      <div id="ftEscalate" style="display:none" class="escalate-banner">
+        <span class="ic">📞</span>
+        <div class="body">
+          <div class="title" data-i18n="ft_esc_title">This one needs supervisor</div>
+          <div class="sub" data-i18n="ft_esc_sub">Confirming a shock load needs a COD kit which isn't available on-site. Visual check + escalate is the standard path.</div>
+        </div>
+      </div>
+
       <div class="step-card">
         <div class="step-h">
           <div style="display:flex;gap:10px;align-items:center;flex:1;min-width:0">
@@ -1172,6 +1275,11 @@ body{display:flex;justify-content:center;min-height:100vh;}
       <div class="yn">
         <button class="ynbtn yes" onclick="foundIt()"><span class="ic">✓</span><span data-i18n="found_yes">Yes, this is the cause</span></button>
         <button class="ynbtn no" onclick="nextStep()"><span class="ic">✗</span><span data-i18n="found_no">No, looks normal</span></button>
+      </div>
+
+      <!-- Prominent skip-step button (F3 pattern available on every step) -->
+      <div class="skip-step-wrap">
+        <button class="skip-step-btn" onclick="skipStep()">⤳ <span data-i18n="skip_step">Skip this step</span></button>
       </div>
     </div>
   </section>
@@ -1347,7 +1455,8 @@ const STEPS = [
     ],
     sol_steps_keys:['sol1_1','sol1_2','sol1_3'],
     safety_key:'safety_blower',
-    canResolve:true
+    canResolve:true,
+    flowType:'F1' /* Standard guided path */
   },
   {
     id:'blower-perf', freq:'low',
@@ -1358,7 +1467,15 @@ const STEPS = [
     sol_steps_keys:['sol2_1','sol2_2','sol2_3'],
     info_key:'info_step2',
     canResolve:true,
-    failsToSupervisor:true
+    failsToSupervisor:true,
+    flowType:'F2', /* Auto-check passive flow */
+    autocheck:{
+      sub_key:'auto2_sub',
+      readouts:[
+        {l_key:'auto2_r1', v:'0.18 bar', n_key:'auto2_r1n', kind:'warn'},
+        {l_key:'auto2_r2', v:'42 m³/hr', n_key:'auto2_r2n', kind:'warn'}
+      ]
+    }
   },
   {
     id:'bubbling', freq:'low-mod',
@@ -1366,7 +1483,8 @@ const STEPS = [
     icon:'💨',
     bubble_key:'bubble_step3',
     sol_steps_keys:['sol3_1','sol3_2'],
-    canResolve:false /* terminal: always escalates */
+    canResolve:false, /* terminal: always escalates */
+    flowType:'F3' /* Skip a step */
   },
   {
     id:'do-sensor', freq:'low-mod',
@@ -1377,7 +1495,9 @@ const STEPS = [
     sol_steps_keys:['sol4_1','sol4_2','sol4_3','sol4_4'],
     info_key:'info_step4',
     canResolve:true,
-    failsToSupervisor:true
+    failsToSupervisor:true,
+    flowType:'F4', /* Skill-tier shortcut */
+    skillTier:'INTERMEDIATE'
   },
   {
     id:'sludge-bulking', freq:'mod-high',
@@ -1386,7 +1506,8 @@ const STEPS = [
     bubble_key:'bubble_step5',
     tools:['tool_sv30','tool_mlss','tool_dewater'],
     sol_steps_keys:['sol5_1','sol5_2'],
-    canResolve:true
+    canResolve:true,
+    flowType:'F5' /* Issue close confirmation pattern */
   },
   {
     id:'shock-load', freq:'high',
@@ -1397,9 +1518,19 @@ const STEPS = [
     tools_warn:true,
     sol_steps_keys:['sol6_1','sol6_2'],
     info_key:'info_step6',
-    canResolve:true
+    canResolve:true,
+    flowType:'F6' /* Call supervisor */
   }
 ];
+
+const FLOW_TYPES = {
+  F1: {name_key:'ft_f1_name', desc_key:'ft_f1_desc', cls:'f1'},
+  F2: {name_key:'ft_f2_name', desc_key:'ft_f2_desc', cls:'f2'},
+  F3: {name_key:'ft_f3_name', desc_key:'ft_f3_desc', cls:'f3'},
+  F4: {name_key:'ft_f4_name', desc_key:'ft_f4_desc', cls:'f4'},
+  F5: {name_key:'ft_f5_name', desc_key:'ft_f5_desc', cls:'f5'},
+  F6: {name_key:'ft_f6_name', desc_key:'ft_f6_desc', cls:'f6'}
+};
 
 const STR = {
   en: {
@@ -1464,6 +1595,39 @@ const STR = {
     photo_hint:"Show the Aeration Tank surface and bubbles. Supervisor will see this with alert context.",
     cta_send_super:"Send to Supervisor", photo_sent:"Sent to Sharma ji ✓",
     modal_title:"Choose your language", modal_sub:"Select your preferred language", lang_continue:"Continue",
+
+    /* Flow type badges */
+    ft_f1_name:"Standard guided", ft_f1_desc:"Walk through every step",
+    ft_f2_name:"Auto-check", ft_f2_desc:"System reads · you only flag",
+    ft_f3_name:"Skip-friendly", ft_f3_desc:"Visual check · easy to skip",
+    ft_f4_name:"Skill shortcut", ft_f4_desc:"Skip ahead if experienced",
+    ft_f5_name:"Verify & close", ft_f5_desc:"Confirm the fix worked",
+    ft_f6_name:"Call supervisor", ft_f6_desc:"Needs expertise or tools",
+
+    /* F2 Auto-check (used in Blower performance) */
+    auto2_sub:"Header pressure + flow on Blower-2 line",
+    auto2_r1:"Header pressure", auto2_r1n:"Normal: 0.35 – 0.50 bar",
+    auto2_r2:"Air flow rate", auto2_r2n:"Normal: 80 – 120 m³/hr",
+    ft_auto_title:"Auto-check · system reading",
+    ft_auto_advance:"Continues in 5 sec",
+    ft_auto_flag:"Looks wrong",
+    flagged_msg:"Sensor reading flagged. A supervisor will be notified.",
+
+    /* F3 Skip-friendly */
+    ft_skip_title:"It's OK to skip this one",
+    ft_skip_sub:"Visual checks like this can be tricky in low light. Skip won't be held against you — we'll move to the next cause.",
+
+    /* F4 Skill shortcut */
+    ft_skill_title:"Skill required",
+    ft_skill_sub:"This check needs you to inspect the probe and use a manual DO kit. Experienced operators can skip the on-screen scaffolding.",
+    ft_skill_shortcut:"I've done this before — skip ahead",
+
+    /* F6 Escalation */
+    ft_esc_title:"This one needs supervisor",
+    ft_esc_sub:"Confirming a shock load needs a COD kit which isn't available on-site. Visual check + escalate is the standard path.",
+
+    /* Skip step button */
+    skip_step:"Skip this step",
 
     /* Plant homepage */
     plant_name:"Honda Manesar STP", plant_sub:"Today · Day shift · Ramesh K.",
@@ -1694,6 +1858,39 @@ const STR = {
     photo_hint:"Aeration टैंक की सतह और बुलबुले दिखाएँ। Supervisor को alert context के साथ भेजा जाएगा।",
     cta_send_super:"Supervisor को भेजें", photo_sent:"Sharma जी को भेज दिया ✓",
     modal_title:"अपनी भाषा चुनें", modal_sub:"पसंदीदा भाषा चुनें", lang_continue:"आगे बढ़ें",
+
+    /* Flow type badges */
+    ft_f1_name:"Standard guided", ft_f1_desc:"हर step पर guide",
+    ft_f2_name:"Auto-check", ft_f2_desc:"System खुद reading लेगा",
+    ft_f3_name:"Skip-friendly", ft_f3_desc:"Visual check · छोड़ सकते हैं",
+    ft_f4_name:"Skill shortcut", ft_f4_desc:"Experience है तो आगे बढ़ें",
+    ft_f5_name:"Verify & close", ft_f5_desc:"Fix की पुष्टि करें",
+    ft_f6_name:"Supervisor को call", ft_f6_desc:"Expertise या tools चाहिए",
+
+    /* F2 Auto-check */
+    auto2_sub:"Blower-2 line का header pressure और flow",
+    auto2_r1:"Header pressure", auto2_r1n:"सामान्य: 0.35 – 0.50 bar",
+    auto2_r2:"Air flow rate", auto2_r2n:"सामान्य: 80 – 120 m³/hr",
+    ft_auto_title:"Auto-check · system reading",
+    ft_auto_advance:"5 सेकंड में आगे",
+    ft_auto_flag:"सही नहीं लग रहा",
+    flagged_msg:"Sensor reading flag कर दी। Supervisor को बताया जाएगा।",
+
+    /* F3 Skip-friendly */
+    ft_skip_title:"इसे छोड़ना ठीक है",
+    ft_skip_sub:"रोशनी कम है तो visual check मुश्किल है। छोड़ने में कोई दिक्कत नहीं — अगले कारण पर जाते हैं।",
+
+    /* F4 Skill shortcut */
+    ft_skill_title:"Skill चाहिए",
+    ft_skill_sub:"Probe देखना और manual DO kit use करना है। Experience है तो scaffolding skip कर सकते हैं।",
+    ft_skill_shortcut:"पहले कर चुका हूँ — आगे जाएं",
+
+    /* F6 Escalation */
+    ft_esc_title:"Supervisor चाहिए",
+    ft_esc_sub:"Shock load confirm करने के लिए COD kit चाहिए जो यहाँ नहीं है। Visual check + escalate ही रास्ता है।",
+
+    /* Skip step button */
+    skip_step:"यह step छोड़ें",
 
     /* Plant homepage */
     plant_name:"Honda Manesar STP", plant_sub:"आज · दिन की shift · Ramesh K.",
@@ -2080,6 +2277,51 @@ function renderStep(){
   document.getElementById('stepNum').textContent = idx+1;
   document.getElementById('stepTitle').textContent = T[`step${idx+1}_title`];
 
+  // ===== Flow type badge & flow-type-specific section =====
+  const ft = s.flowType || 'F1';
+  const ftMeta = FLOW_TYPES[ft];
+  const badge = document.getElementById('flowTypeBadge');
+  badge.className = 'flow-type-badge ' + ftMeta.cls;
+  badge.innerHTML = `<span class="code">${ft}</span><span id="flowTypeName">${T[ftMeta.name_key]}</span>`;
+  document.getElementById('flowTypeDesc').textContent = T[ftMeta.desc_key];
+
+  // Hide all flow-type sections by default
+  document.getElementById('ftAutocheck').style.display = 'none';
+  document.getElementById('ftSkipFriendly').style.display = 'none';
+  document.getElementById('ftSkill').style.display = 'none';
+  document.getElementById('ftEscalate').style.display = 'none';
+
+  // F2: render auto-check banner
+  if(ft === 'F2' && s.autocheck){
+    document.getElementById('ftAutocheck').style.display = 'block';
+    document.getElementById('ftAutoSub').textContent = T[s.autocheck.sub_key] || '';
+    const ro = document.getElementById('ftAutoReadout');
+    ro.innerHTML = '';
+    s.autocheck.readouts.forEach(r => {
+      const item = document.createElement('div');
+      item.className = 'item' + (r.kind === 'warn' ? ' warn' : '');
+      item.innerHTML = `<div class="l">${T[r.l_key]||r.l_key}</div><div class="v">${r.v}</div><div class="n">${T[r.n_key]||''}</div>`;
+      ro.appendChild(item);
+    });
+    // animate countdown
+    const timer = document.getElementById('ftAutoTimer');
+    timer.style.width = '0';
+    setTimeout(() => { timer.style.width = '100%'; }, 60);
+  }
+  // F3: skip-friendly emphasis
+  if(ft === 'F3'){
+    document.getElementById('ftSkipFriendly').style.display = 'flex';
+  }
+  // F4: skill-tier shortcut
+  if(ft === 'F4'){
+    document.getElementById('ftSkill').style.display = 'block';
+    document.getElementById('ftSkillTier').textContent = s.skillTier || 'Intermediate';
+  }
+  // F6: escalation banner
+  if(ft === 'F6'){
+    document.getElementById('ftEscalate').style.display = 'flex';
+  }
+
   // Eqchip
   document.getElementById('stepEq').textContent = T[s.eqchip_key];
   const dot = document.querySelector('#stepEqchip .dot');
@@ -2167,6 +2409,35 @@ function nextStep(){
   }
   currentStepIdx++;
   renderStep();
+}
+
+/* F3 — Skip this step (logged as SKIPPED, no judgment) */
+function skipStep(){
+  stepsDone.push({idx:currentStepIdx, outcome:'skipped-by-user'});
+  if(currentStepIdx >= STEPS.length-1){
+    showStop('all_checked');
+    return;
+  }
+  currentStepIdx++;
+  renderStep();
+}
+
+/* F2 — Flag auto-check reading as wrong */
+function flagAutocheck(){
+  stepsDone.push({idx:currentStepIdx, outcome:'flagged-sensor'});
+  alert(T.flagged_msg || 'Sensor reading flagged. We\'ll route to manual check.');
+}
+
+/* F4 — Use skill-tier shortcut: jump past scaffolding into the solution */
+function useShortcut(){
+  stepsDone.push({idx:currentStepIdx, outcome:'shortcut'});
+  // Treat the cause as found and go straight to solution
+  if(STEPS[currentStepIdx].canResolve){
+    renderSolution();
+    go('solution');
+  } else {
+    showStop(`step${currentStepIdx+1}_title`);
+  }
 }
 
 function renderSolution(){
