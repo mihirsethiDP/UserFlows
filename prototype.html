@@ -345,7 +345,6 @@ body{display:flex;justify-content:center;min-height:100vh;}
             <div class="step-num" id="stepNum">1</div>
             <div class="step-title" id="stepTitle">Blower is OFF</div>
           </div>
-          <span class="freq-pill" id="stepFreq">Low</span>
         </div>
 
         <div class="section-h"><span class="dot"></span><span data-i18n="tools_needed">Tools needed</span></div>
@@ -948,8 +947,6 @@ function renderPreview(){
   if(!list) return;
   list.innerHTML = '';
   STEPS.forEach((s,i)=>{
-    const freqClass = s.freq==='low'?'freq-low':s.freq==='high'?'freq-high':s.freq==='mod-high'?'freq-mod':'freq-low';
-    const freqText = s.freq==='low'?T.freq_low:s.freq==='low-mod'?T.freq_low_mod:s.freq==='mod-high'?T.freq_mod_high:T.freq_high;
     const blurbKey = `prev_${i+1}_blurb`;
     const titleKey = `step${i+1}_title`;
     const row = document.createElement('div');
@@ -961,7 +958,7 @@ function renderPreview(){
         <div style="font-weight:700;font-size:14px;color:var(--brand);line-height:1.25">${T[titleKey]}</div>
         <div style="font-size:11px;color:var(--ink-3);margin-top:2px;font-weight:500">${T[blurbKey]}</div>
       </div>
-      <span class="freq-pill ${freqClass}">${freqText}</span>
+      <span style="color:var(--ink-3);font-size:18px">›</span>
     `;
     row.onclick = ()=>startStep(i);
     list.appendChild(row);
@@ -980,11 +977,6 @@ function renderStep(){
   document.getElementById('stepCounter').textContent = (lang==='en'?`Step ${idx+1} of 6`:`Step ${idx+1} / 6`);
   document.getElementById('stepNum').textContent = idx+1;
   document.getElementById('stepTitle').textContent = T[`step${idx+1}_title`];
-
-  // Freq pill
-  const fp = document.getElementById('stepFreq');
-  fp.className = 'freq-pill ' + (s.freq==='low'?'freq-low':s.freq==='high'?'freq-high':s.freq==='mod-high'?'freq-mod':'freq-low');
-  fp.textContent = s.freq==='low'?T.freq_low:s.freq==='low-mod'?T.freq_low_mod:s.freq==='mod-high'?T.freq_mod_high:T.freq_high;
 
   // Eqchip
   document.getElementById('stepEq').textContent = T[s.eqchip_key];
