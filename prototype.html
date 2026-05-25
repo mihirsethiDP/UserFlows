@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+<title>Dr. Paani · Aeration Tank Issue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#193458;
+  --brand-2:#2A4D7F;
+  --brand-tint:#EEF2F8;
+  --brand-tint-2:#DCE4F0;
+  --bg:#FFFFFF;
+  --surface:#F7F8FB;
+  --ink:#0E1A2E;
+  --ink-2:#3F4D66;
+  --ink-3:#7A8497;
+  --line:#E4E8EF;
+  --line-2:#C8D0DD;
+  --red:#D64545;
+  --red-d:#7A1F1F;
+  --red-tint:#FBEAEA;
+  --amber:#E8941A;
+  --amber-tint:#FDF1DC;
+  --green:#1F9D55;
+  --green-tint:#E1F4EA;
+  --shadow:0 1px 2px rgba(25,52,88,.05), 0 6px 18px rgba(25,52,88,.08);
+  --shadow-lg:0 8px 30px rgba(25,52,88,.18);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#E8ECF2;color:var(--ink);font-family:'Plus Jakarta Sans','Noto Sans Devanagari',system-ui,sans-serif;font-feature-settings:"ss01";}
+body{display:flex;justify-content:center;min-height:100vh;}
+.device{
+  width:100%;max-width:420px;min-height:100vh;background:var(--bg);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  box-shadow:0 0 0 1px var(--line);
+}
+
+/* Status bar */
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 4px;font-size:13px;font-weight:600;color:var(--ink);}
+.statusbar .back{font-weight:600;color:var(--ink);text-decoration:none;font-size:15px;}
+
+/* Breadcrumbs */
+.crumbs{display:flex;align-items:center;gap:6px;padding:8px 20px 8px;font-size:12px;color:var(--ink-3);font-weight:500;}
+.crumbs a{color:var(--ink-3);text-decoration:none;}
+.crumbs .sep{opacity:.5;}
+.crumbs .cur{color:var(--brand);font-weight:700;}
+
+/* Scroll wrapper */
+.scroll{flex:1;overflow-y:auto;padding:0 20px 140px;-webkit-overflow-scrolling:touch;}
+
+/* Alert chip */
+.alert-chip{display:inline-flex;align-items:center;gap:8px;background:var(--red-tint);color:var(--red-d);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;margin:4px 20px 6px;}
+.alert-chip .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 1.4s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.4}}
+
+/* Focal card */
+.focal{margin:10px 0 0;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);}
+.focal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
+.focal-eyebrow{font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+.focal-title{font-size:24px;font-weight:800;line-height:1.15;color:var(--brand);margin-top:4px;letter-spacing:-.02em;}
+.focal-title .hi{display:block;font-size:18px;font-weight:700;color:var(--ink-2);margin-top:2px;}
+.status-pill{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:6px 11px;border-radius:999px;white-space:nowrap;}
+.status-pill .d{width:6px;height:6px;border-radius:50%;background:#fff;}
+
+/* Simple SVG illustration */
+.illus{width:100%;height:220px;display:block;margin:14px 0 8px;}
+
+/* Readout grid */
+.readouts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.readout{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;}
+.readout .lbl{font-size:10px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.readout .val{font-size:22px;font-weight:800;color:var(--brand);margin-top:4px;display:flex;align-items:baseline;gap:4px;letter-spacing:-.02em;}
+.readout .val .u{font-size:11px;font-weight:600;color:var(--ink-3);}
+.readout.bad{background:var(--red-tint);border-color:#F2C9C9;}
+.readout.bad .val{color:var(--red-d);}
+.readout .norm{font-size:10px;color:var(--ink-3);margin-top:2px;font-weight:600;}
+
+/* CCU rows */
+.ccu{margin:14px 0 0;display:flex;flex-direction:column;gap:8px;}
+.ccu .row{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.4;color:var(--ink-2);}
+.ccu .row .ic{width:22px;text-align:center;flex-shrink:0;}
+.ccu .row.cause{font-size:14px;color:var(--ink);font-weight:600;}
+
+/* CTA bar */
+.cta-bar{position:absolute;left:0;right:0;bottom:0;padding:14px 20px 22px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,#fff 35%);display:flex;flex-direction:column;gap:8px;}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:16px;padding:16px 18px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;width:100%;letter-spacing:-.01em;}
+.btn.primary{background:var(--brand);color:#fff;box-shadow:0 6px 16px rgba(25,52,88,.25);}
+.btn.primary:active{transform:scale(.98);}
+.btn.ghost{background:#fff;color:var(--brand);border:1.5px solid var(--line);}
+.btn.sec{background:var(--brand-tint);color:var(--brand);}
+.btn-row{display:flex;gap:8px;}
+.btn-row .btn{flex:1;padding:12px;font-size:13px;}
+.skip{display:block;text-align:center;font-size:13px;color:var(--ink-3);padding:12px;text-decoration:underline;text-decoration-style:dotted;cursor:pointer;}
+
+/* Step header */
+.stephead{display:flex;justify-content:space-between;align-items:center;padding:8px 20px;}
+.steptype{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);background:var(--brand-tint);padding:5px 10px;border-radius:999px;}
+.steptype.amber{background:var(--amber-tint);color:#8B5A0A;}
+.steptype.green{background:var(--green-tint);color:#0F5A30;}
+.dots{display:flex;gap:6px;}
+.dots span{width:7px;height:7px;border-radius:50%;background:var(--line-2);}
+.dots span.done{background:var(--green);}
+.dots span.cur{background:var(--brand);width:22px;border-radius:4px;}
+.listen{width:38px;height:38px;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;cursor:pointer;font-size:16px;}
+
+/* Question */
+.q{font-size:22px;font-weight:800;line-height:1.25;padding:6px 20px 4px;color:var(--brand);letter-spacing:-.02em;}
+.q-sub{font-size:13px;color:var(--ink-3);padding:0 20px;margin-top:4px;font-weight:500;}
+
+/* Eq chip */
+.eqchip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 10px;font-size:12px;font-weight:700;color:var(--brand);box-shadow:var(--shadow);margin:0 20px;}
+.eqchip .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(214,69,69,.18);}
+.eqchip .dot.amber{background:var(--amber);box-shadow:0 0 0 4px rgba(232,148,26,.18);}
+.eqchip .dot.brand{background:var(--brand);box-shadow:0 0 0 4px rgba(25,52,88,.15);}
+
+/* Mascot row */
+.mascot-row{padding:8px 20px 0;display:flex;align-items:flex-start;gap:10px;}
+.mascot{width:44px;height:44px;border-radius:50%;background:var(--brand-tint);display:grid;place-items:center;flex-shrink:0;border:1.5px solid var(--brand-tint-2);}
+.bubble{background:var(--brand);color:#fff;border-radius:14px;border-top-left-radius:4px;padding:10px 14px;font-size:13px;line-height:1.4;font-weight:500;}
+
+/* Yes/No */
+.yn{display:flex;flex-direction:column;gap:10px;padding:14px 20px 0;}
+.ynbtn{display:flex;align-items:center;gap:14px;padding:18px 18px;border-radius:16px;border:1.5px solid var(--line);background:#fff;font-size:16px;font-weight:700;cursor:pointer;text-align:left;font-family:inherit;color:var(--ink);}
+.ynbtn .ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:800;}
+.ynbtn.yes .ic{background:var(--green-tint);color:var(--green);}
+.ynbtn.no .ic{background:var(--red-tint);color:var(--red);}
+.ynbtn:active{transform:scale(.99);}
+
+/* Tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px 20px 0;}
+.tile{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:inherit;}
+.tile svg{width:60px;height:60px;}
+.tile .lbl{font-size:13px;font-weight:700;color:var(--brand);}
+
+/* Preview list */
+.prevlist{padding:8px 20px 0;display:flex;flex-direction:column;gap:10px;}
+.previtem{display:flex;gap:12px;align-items:center;padding:14px;background:#fff;border:1px solid var(--line);border-radius:14px;}
+.previtem .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-tint);display:grid;place-items:center;flex-shrink:0;color:var(--brand);}
+.previtem .t{font-weight:700;font-size:14px;color:var(--brand);}
+.previtem .s{font-size:11px;color:var(--ink-3);margin-top:2px;}
+
+/* Root cause */
+.rccard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin:0 20px;}
+.rc-head{display:flex;align-items:center;gap:12px;}
+.rc-ic{width:52px;height:52px;border-radius:16px;background:var(--amber-tint);display:grid;place-items:center;font-size:26px;flex-shrink:0;}
+.rc-title{font-size:20px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.rc-sub{font-size:12px;color:var(--ink-3);font-weight:500;margin-top:2px;}
+.rc-prob{display:flex;align-items:center;gap:10px;margin:14px 0;}
+.rc-prob-bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden;}
+.rc-prob-bar > i{display:block;height:100%;width:78%;background:var(--green);border-radius:4px;}
+.rc-prob-val{font-weight:800;font-size:18px;color:var(--green);}
+.reasoning{font-size:13px;color:var(--ink-2);line-height:1.5;background:var(--surface);border-radius:12px;padding:12px;font-weight:500;}
+.sensor-map{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12px;color:var(--ink-3);flex-wrap:wrap;font-weight:600;}
+.sensor-map b{color:var(--brand);}
+
+/* Gauge / verification */
+.gauge{display:flex;flex-direction:column;align-items:center;padding:18px 0;}
+.gauge svg{width:220px;height:130px;}
+.timer{font-size:32px;color:var(--brand);margin-top:10px;font-weight:800;letter-spacing:-.02em;}
+.timer-lbl{font-size:12px;color:var(--ink-3);margin-top:2px;font-weight:600;}
+.verify-info{background:var(--brand-tint);border:1px solid var(--brand-tint-2);border-radius:14px;padding:12px 14px;margin:14px 20px;font-size:13px;color:var(--brand);display:flex;gap:10px;align-items:center;font-weight:600;}
+
+/* Success */
+.success{padding:40px 20px 0;text-align:center;}
+.success .check{width:96px;height:96px;border-radius:50%;background:var(--green-tint);display:grid;place-items:center;margin:0 auto 16px;}
+.success h2{font-size:28px;margin:0 0 6px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.success p{font-size:14px;color:var(--ink-2);margin:0 0 18px;font-weight:500;}
+.mttr{display:flex;justify-content:space-around;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin:16px 0;}
+.mttr .it{text-align:center;}
+.mttr .it .v{font-size:18px;font-weight:800;color:var(--brand);}
+.mttr .it .l{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;font-weight:700;}
+.confirm-q{font-size:14px;color:var(--ink-2);margin:14px 0 10px;text-align:left;font-weight:600;}
+.confirm-list{display:flex;flex-direction:column;gap:8px;text-align:left;}
+
+/* Action card */
+.action{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 18px;margin:0 20px;box-shadow:var(--shadow);}
+.action-ic{width:96px;height:96px;border-radius:24px;background:var(--brand-tint);display:grid;place-items:center;margin:0 auto 16px;}
+.action-title{font-size:22px;text-align:center;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.action-sub{font-size:13px;color:var(--ink-2);text-align:center;margin:8px 0 0;line-height:1.45;font-weight:500;}
+.safety{background:var(--amber-tint);border:1px solid #F5D9A6;border-radius:12px;padding:10px 12px;margin-top:16px;font-size:12px;color:#7C4A0A;display:flex;gap:8px;align-items:flex-start;line-height:1.4;font-weight:600;}
+
+/* Reassign list */
+.rlist{padding:8px 20px 0;display:flex;flex-direction:column;gap:8px;}
+.ritem{display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border:1.5px solid var(--line);border-radius:14px;cursor:pointer;font-family:inherit;color:var(--ink);text-align:left;width:100%;}
+.ritem .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-tint);display:grid;place-items:center;flex-shrink:0;font-size:20px;}
+.ritem .t{font-weight:700;font-size:14px;color:var(--brand);}
+.ritem .s{font-size:11px;color:var(--ink-3);margin-top:2px;font-weight:500;}
+
+/* Auto check */
+.autocheck{padding:18px 20px 0;text-align:center;}
+.autopill{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-size:15px;font-weight:800;padding:12px 20px;border-radius:999px;}
+.autopill .d{width:10px;height:10px;border-radius:50%;background:#fff;}
+.auto-meta{font-size:14px;color:var(--ink-2);margin-top:14px;font-weight:600;}
+.auto-meta b{color:var(--brand);font-weight:800;}
+.auto-sub{font-size:11px;color:var(--ink-3);margin-top:4px;font-weight:600;}
+.timer-bar{margin:22px 20px 0;}
+.timer-bar .track{height:6px;background:var(--line);border-radius:3px;overflow:hidden;}
+.timer-bar .track > i{display:block;height:100%;width:0;background:var(--brand);transition:width 5s linear;}
+.timer-bar .lbl{text-align:center;font-size:11px;color:var(--ink-3);margin-top:8px;font-weight:600;}
+
+/* Photo */
+.photo-frame{width:100%;aspect-ratio:1;background:var(--brand);border-radius:18px;display:grid;place-items:center;color:#fff;margin-top:20px;}
+
+/* Escalate */
+.escalate{padding:40px 20px 0;text-align:center;}
+.escalate .icon{width:96px;height:96px;border-radius:50%;background:var(--red-tint);display:grid;place-items:center;margin:0 auto 16px;font-size:48px;}
+.escalate h2{font-size:24px;margin:0 0 8px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.escalate p{font-size:14px;color:var(--ink-2);font-weight:500;line-height:1.45;}
+
+/* Screen system */
+.screen{display:none;flex-direction:column;flex:1;min-height:0;}
+.screen.on{display:flex;}
+
+.cap{font-size:11px;color:var(--ink-3);font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:0 20px;margin:18px 0 8px;}
+.rc-prob-line{padding:0 20px;display:flex;flex-direction:column;gap:8px;}
+.rc-prob-line .item{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2);font-weight:600;}
+.rc-prob-line .item b{color:var(--brand);font-weight:800;}
+
+/* Language modal */
+.modal-bg{position:fixed;inset:0;background:rgba(14,26,46,.55);display:flex;justify-content:center;align-items:flex-end;z-index:100;backdrop-filter:blur(4px);}
+.modal{width:100%;max-width:420px;background:#fff;border-radius:24px 24px 0 0;padding:28px 24px 32px;box-shadow:var(--shadow-lg);animation:slideUp .3s ease-out;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal h2{font-size:22px;font-weight:800;color:var(--brand);margin:0 0 6px;letter-spacing:-.02em;}
+.modal p{font-size:13px;color:var(--ink-3);margin:0 0 20px;font-weight:500;}
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.lang{padding:18px;border:2px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;text-align:left;font-family:inherit;transition:.15s;}
+.lang.active{border-color:var(--brand);background:var(--brand-tint);}
+.lang .big{font-size:22px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.lang .small{font-size:12px;color:var(--ink-3);margin-top:2px;font-weight:600;}
+
+/* Lang switcher button */
+.lang-switch{position:absolute;top:14px;right:20px;font-size:11px;font-weight:700;color:var(--brand);background:var(--brand-tint);padding:5px 10px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;z-index:10;}
+</style>
+</head>
+<body>
+
+<div class="device" id="device">
+
+  <!-- Language switcher -->
+  <button class="lang-switch" onclick="openLang()" id="langSwitch">EN</button>
+
+  <!-- ========== HOME / ISSUE ========== -->
+  <section class="screen on" id="s-home">
+    <div class="statusbar"><span>9:42</span><span>●●●● 4G</span></div>
+    <div class="crumbs">
+      <a onclick="go('home')" data-i18n="crumb_plant">Plant</a><span class="sep">›</span>
+      <a onclick="go('home')" data-i18n="crumb_section">Aeration</a><span class="sep">›</span>
+      <span class="cur" data-i18n="crumb_issue">Tank · Issue</span>
+    </div>
+    <div class="alert-chip"><span class="pulse"></span><span data-i18n="new_alert">New alert · 8 min ago</span></div>
+
+    <div class="scroll">
+      <div class="focal">
+        <div class="focal-head">
+          <div>
+            <div class="focal-eyebrow" data-i18n="eyebrow">Aeration Section · Primary</div>
+            <div class="focal-title" data-i18n="focal_title">Aeration Tank<span class="hi" data-i18n="focal_sub">Oxygen is low</span></div>
+          </div>
+          <span class="status-pill"><span class="d"></span><span data-i18n="status_pill">DO Low</span></span>
+        </div>
+
+        <!-- Simple flat SVG of Aeration Tank - easy to redraw in Figma -->
+        <svg class="illus" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ground -->
+          <line x1="20" y1="200" x2="300" y2="200" stroke="#C8D0DD" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+          <!-- Tank body (simple rounded rect) -->
+          <rect x="40" y="40" width="240" height="160" rx="8" fill="#EEF2F8" stroke="#193458" stroke-width="2.5"/>
+
+          <!-- Water (simple solid fill, no gradient) -->
+          <rect x="44" y="76" width="232" height="120" rx="4" fill="#B8D4E3"/>
+
+          <!-- Water surface line -->
+          <line x1="44" y1="76" x2="276" y2="76" stroke="#7AABC4" stroke-width="2"/>
+
+          <!-- Fish near surface gasping (low DO indicator) - simple shape -->
+          <g transform="translate(110, 88)">
+            <ellipse cx="0" cy="0" rx="14" ry="7" fill="#193458"/>
+            <polygon points="-14,0 -22,-6 -22,6" fill="#193458"/>
+            <circle cx="6" cy="-2" r="1.5" fill="#fff"/>
+            <!-- gasping mouth open -->
+            <circle cx="14" cy="0" r="3" fill="#fff" stroke="#193458" stroke-width="1.5"/>
+            <!-- small bubble near mouth -->
+            <circle cx="20" cy="-4" r="2" fill="#fff" stroke="#193458" stroke-width="1"/>
+          </g>
+
+          <g transform="translate(180, 92)">
+            <ellipse cx="0" cy="0" rx="12" ry="6" fill="#193458"/>
+            <polygon points="-12,0 -19,-5 -19,5" fill="#193458"/>
+            <circle cx="5" cy="-2" r="1.5" fill="#fff"/>
+            <circle cx="12" cy="0" r="2.5" fill="#fff" stroke="#193458" stroke-width="1.5"/>
+          </g>
+
+          <!-- Diffuser at bottom (simple rectangle with dots) -->
+          <rect x="60" y="186" width="200" height="10" rx="3" fill="#193458"/>
+          <circle cx="80" cy="191" r="1.5" fill="#fff"/>
+          <circle cx="110" cy="191" r="1.5" fill="#fff"/>
+          <circle cx="140" cy="191" r="1.5" fill="#fff"/>
+          <circle cx="170" cy="191" r="1.5" fill="#fff"/>
+          <circle cx="200" cy="191" r="1.5" fill="#fff"/>
+          <circle cx="230" cy="191" r="1.5" fill="#fff"/>
+
+          <!-- Sparse bubbles rising (only 2 — indicates low aeration) - simple animation -->
+          <circle cx="110" cy="170" r="3" fill="#fff" stroke="#7AABC4" stroke-width="1.5" opacity="0.9">
+            <animate attributeName="cy" values="186;76" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.9;0" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="200" cy="150" r="3" fill="#fff" stroke="#7AABC4" stroke-width="1.5" opacity="0.9">
+            <animate attributeName="cy" values="186;76" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- DO Sensor probe (top right) -->
+          <line x1="240" y1="44" x2="240" y2="100" stroke="#193458" stroke-width="3" stroke-linecap="round"/>
+          <rect x="234" y="98" width="12" height="14" rx="2" fill="#193458"/>
+
+          <!-- Sensor reading badge -->
+          <g>
+            <rect x="246" y="34" width="60" height="24" rx="12" fill="#D64545"/>
+            <circle cx="256" cy="46" r="3" fill="#fff"/>
+            <text x="263" y="50" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#fff">0.8 mg/L</text>
+          </g>
+
+          <!-- Equipment tag -->
+          <rect x="40" y="40" width="86" height="22" fill="#193458"/>
+          <text x="48" y="55" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" fill="#fff">AT-01</text>
+
+          <!-- Inlet pipe (simple) -->
+          <rect x="14" y="62" width="28" height="14" fill="#193458"/>
+          <!-- Outlet pipe -->
+          <rect x="278" y="160" width="28" height="14" fill="#193458"/>
+        </svg>
+
+        <div class="readouts">
+          <div class="readout bad">
+            <div class="lbl" data-i18n="do_label">DO (Sensor A)</div>
+            <div class="val">0.8<span class="u">mg/L</span></div>
+            <div class="norm" data-i18n="do_normal">Normal: 2.0 — 4.0</div>
+          </div>
+          <div class="readout">
+            <div class="lbl" data-i18n="mlss_label">MLSS</div>
+            <div class="val">3,200<span class="u">mg/L</span></div>
+            <div class="norm" data-i18n="mlss_normal">Normal: 3,000 — 4,000</div>
+          </div>
+        </div>
+
+        <div class="ccu">
+          <div class="row cause"><span class="ic">🔴</span><span data-i18n="ccu_cause">Low oxygen in the tank</span></div>
+          <div class="row"><span class="ic">⚠️</span><span data-i18n="ccu_cons">Bacteria can die · effluent will degrade</span></div>
+          <div class="row"><span class="ic">⏱️</span><span data-i18n="ccu_urg">Running 8 min · check now</span></div>
+        </div>
+      </div>
+
+      <div class="mascot-row">
+        <div class="mascot"><svg viewBox="0 0 40 40" width="32" height="32"><use href="#mascot"/></svg></div>
+        <div class="bubble" data-i18n="home_bubble">Oxygen is low in the Aeration Tank. Let's check together — start the diagnosis.</div>
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <button class="btn primary" onclick="go('preview')" data-i18n="cta_start">Start the check</button>
+      <div class="btn-row">
+        <button class="btn sec" onclick="go('reassign')" data-i18n="cta_reassign">↪ Reassign</button>
+        <button class="btn sec" onclick="go('photo')" data-i18n="cta_photo">📷 Send photo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PREVIEW ========== -->
+  <section class="screen" id="s-preview">
+    <div class="statusbar"><a class="back" onclick="go('home')">‹</a><span>9:43</span></div>
+    <div class="crumbs"><a onclick="go('home')" data-i18n="crumb_back">Aeration Tank</a><span class="sep">›</span><span class="cur" data-i18n="crumb_plan">Diagnostic plan</span></div>
+    <div class="mascot-row">
+      <div class="mascot"><svg viewBox="0 0 40 40" width="32" height="32"><use href="#mascot"/></svg></div>
+      <div class="bubble" data-i18n="preview_bubble">4 quick checks · about 5 minutes</div>
+    </div>
+    <div class="scroll">
+      <div class="q" data-i18n="preview_q">What we'll check</div>
+      <div class="prevlist">
+        <div class="previtem"><div class="ic">👀</div><div><div class="t" data-i18n="prev_1_t">Look at the tank</div><div class="s" data-i18n="prev_1_s">Are there enough bubbles?</div></div></div>
+        <div class="previtem"><div class="ic">💨</div><div><div class="t" data-i18n="prev_2_t">Is the blower running?</div><div class="s" data-i18n="prev_2_s">Check the panel light</div></div></div>
+        <div class="previtem"><div class="ic">📊</div><div><div class="t" data-i18n="prev_3_t">Check the air valve</div><div class="s" data-i18n="prev_3_s">Open or closed</div></div></div>
+        <div class="previtem"><div class="ic">🔍</div><div><div class="t" data-i18n="prev_4_t">Find the cause</div><div class="s" data-i18n="prev_4_s">Root cause + fix</div></div></div>
+      </div>
+      <div class="cap" data-i18n="prev_likely">Most likely causes</div>
+      <div class="rc-prob-line">
+        <div class="item"><span data-i18n="rc_1">Blower stopped</span><b>52%</b></div>
+        <div class="item"><span data-i18n="rc_2">Diffuser fouled</span><b>28%</b></div>
+        <div class="item"><span data-i18n="rc_3">Air valve closed</span><b>14%</b></div>
+        <div class="item" style="color:var(--ink-3)"><span data-i18n="rc_other">Other</span><b>6%</b></div>
+      </div>
+    </div>
+    <div class="cta-bar"><button class="btn primary" onclick="go('step1')" data-i18n="cta_begin">Begin</button></div>
+  </section>
+
+  <!-- ========== STEP 1 — Bubbles Yes/No ========== -->
+  <section class="screen" id="s-step1">
+    <div class="statusbar"><a class="back" onclick="go('preview')">‹</a><span data-i18n="step_1_of_4">Step 1 of 4</span><span class="skip" style="padding:0;font-size:13px" onclick="go('step2')" data-i18n="skip">Skip</span></div>
+    <div class="eqchip"><span class="dot"></span><span data-i18n="eqchip_aeration">Aeration Tank · AT-01</span></div>
+    <div class="stephead">
+      <span class="steptype" data-i18n="type_observation">Observation</span>
+      <div class="dots"><span class="cur"></span><span></span><span></span><span></span></div>
+      <button class="listen">🔊</button>
+    </div>
+    <div class="q" data-i18n="step1_q">Do you see enough bubbles in the tank?</div>
+    <div class="q-sub" data-i18n="step1_sub">Look from the top of the tank</div>
+    <div class="scroll">
+      <!-- Comparison illustration: lots vs few bubbles -->
+      <div style="display:flex;justify-content:center;gap:14px;padding:18px 0;">
+        <div style="text-align:center">
+          <svg viewBox="0 0 100 100" width="90" height="90">
+            <rect x="10" y="14" width="80" height="76" rx="4" fill="#EEF2F8" stroke="#193458" stroke-width="2"/>
+            <rect x="14" y="26" width="72" height="60" rx="2" fill="#B8D4E3"/>
+            <rect x="20" y="80" width="60" height="6" fill="#193458"/>
+            <!-- many bubbles -->
+            <circle cx="30" cy="60" r="3" fill="#fff" stroke="#193458" stroke-width="1"/>
+            <circle cx="45" cy="50" r="3" fill="#fff" stroke="#193458" stroke-width="1"/>
+            <circle cx="60" cy="58" r="3" fill="#fff" stroke="#193458" stroke-width="1"/>
+            <circle cx="35" cy="40" r="2" fill="#fff" stroke="#193458" stroke-width="1"/>
+            <circle cx="55" cy="34" r="2" fill="#fff" stroke="#193458" stroke-width="1"/>
+            <circle cx="70" cy="44" r="2" fill="#fff" stroke="#193458" stroke-width="1"/>
+            <circle cx="25" cy="30" r="2" fill="#fff" stroke="#193458" stroke-width="1"/>
+          </svg>
+          <div style="font-size:11px;color:var(--green);font-weight:800;margin-top:4px" data-i18n="bubbles_normal">NORMAL</div>
+        </div>
+        <span style="align-self:center;font-size:20px;color:var(--ink-3);font-weight:600" data-i18n="or">or</span>
+        <div style="text-align:center">
+          <svg viewBox="0 0 100 100" width="90" height="90">
+            <rect x="10" y="14" width="80" height="76" rx="4" fill="#EEF2F8" stroke="#193458" stroke-width="2"/>
+            <rect x="14" y="26" width="72" height="60" rx="2" fill="#B8D4E3"/>
+            <rect x="20" y="80" width="60" height="6" fill="#193458"/>
+            <!-- few bubbles -->
+            <circle cx="40" cy="65" r="3" fill="#fff" stroke="#D64545" stroke-width="1.5"/>
+            <circle cx="65" cy="55" r="2" fill="#fff" stroke="#D64545" stroke-width="1.5"/>
+          </svg>
+          <div style="font-size:11px;color:var(--red);font-weight:800;margin-top:4px" data-i18n="bubbles_low">LOW</div>
+        </div>
+      </div>
+      <div class="yn">
+        <button class="ynbtn yes" onclick="go('step2')"><span class="ic">✓</span><span data-i18n="yn_yes_bubbles">Yes, bubbles are normal</span></button>
+        <button class="ynbtn no" onclick="go('step2')"><span class="ic">✗</span><span data-i18n="yn_no_bubbles">No, very few bubbles</span></button>
+      </div>
+      <a class="skip" onclick="go('step2')" data-i18n="dont_know">I don't know</a>
+    </div>
+  </section>
+
+  <!-- ========== STEP 2 — Blower auto-check ========== -->
+  <section class="screen" id="s-step2">
+    <div class="statusbar"><a class="back" onclick="go('step1')">‹</a><span data-i18n="step_2_of_4">Step 2 of 4</span></div>
+    <div class="eqchip"><span class="dot amber"></span><span data-i18n="eqchip_blower">Aeration Blower-1</span></div>
+    <div class="stephead">
+      <span class="steptype amber" data-i18n="type_auto">🤖 Auto-check</span>
+      <div class="dots"><span class="done"></span><span class="cur"></span><span></span><span></span></div>
+      <button class="listen">🔊</button>
+    </div>
+    <div class="q" data-i18n="step2_q">Reading blower status…</div>
+    <div class="scroll">
+      <div class="autocheck">
+        <div class="autopill"><span class="d"></span><span data-i18n="blower_stopped">Stopped</span></div>
+        <div class="auto-meta"><span data-i18n="current_now">Current:</span> <b>0 A</b> · <span data-i18n="current_normal">Normal: 12 A</span></div>
+        <div class="auto-sub" data-i18n="last_reading">Last reading: 8 sec ago</div>
+      </div>
+      <div class="timer-bar">
+        <div class="track"><i id="autoTimer"></i></div>
+        <div class="lbl" data-i18n="next_5s">Next step in 5 sec</div>
+      </div>
+    </div>
+    <div class="cta-bar">
+      <button class="btn primary" onclick="go('rc')" data-i18n="cta_next">Continue</button>
+      <button class="btn ghost" onclick="go('rc')" data-i18n="flag_sensor">🚩 This doesn't look right</button>
+    </div>
+  </section>
+
+  <!-- ========== ROOT CAUSE ========== -->
+  <section class="screen" id="s-rc">
+    <div class="statusbar"><span></span><span data-i18n="cause_found">Cause found</span></div>
+    <div class="eqchip"><span class="dot brand"></span><span data-i18n="eqchip_aeration">Aeration Tank · AT-01</span></div>
+    <div class="mascot-row" style="padding-top:12px">
+      <div class="mascot"><svg viewBox="0 0 40 40" width="32" height="32"><use href="#mascot"/></svg></div>
+      <div class="bubble" data-i18n="rc_bubble">Found the cause. Let's fix it now.</div>
+    </div>
+    <div class="scroll">
+      <div class="cap" style="margin-top:18px" data-i18n="cap_rc">Root cause</div>
+      <div class="rccard">
+        <div class="rc-head">
+          <div class="rc-ic">⚡</div>
+          <div>
+            <div class="rc-title" data-i18n="rc_title">Blower was off</div>
+            <div class="rc-sub" data-i18n="rc_sub">Aeration Blower-1 not running</div>
+          </div>
+        </div>
+        <div class="rc-prob">
+          <div class="rc-prob-bar"><i></i></div>
+          <div class="rc-prob-val">78%</div>
+        </div>
+        <div class="reasoning" data-i18n="rc_reasoning">No blower means no air to the tank. Bacteria couldn't get oxygen, so the DO sensor dropped to 0.8 mg/L.</div>
+        <div class="sensor-map">
+          <span style="color:var(--red-d)">📍 <span data-i18n="sensor_a">Sensor A:</span> <b>DO 0.8 mg/L</b></span>
+          <span>→</span>
+          <span><span data-i18n="fix_via">Fix via:</span> <b data-i18n="blower_current">Blower current</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="cta-bar">
+      <button class="btn primary" onclick="go('fix')" data-i18n="cta_fix">Start the fix</button>
+      <button class="btn ghost" onclick="go('reassign')" data-i18n="cta_disagree">I don't agree</button>
+    </div>
+  </section>
+
+  <!-- ========== FIX ========== -->
+  <section class="screen" id="s-fix">
+    <div class="statusbar"><a class="back" onclick="go('rc')">‹</a><span data-i18n="now_fix">Now let's fix it</span></div>
+    <div class="eqchip"><span class="dot amber"></span><span data-i18n="eqchip_blower">Aeration Blower-1</span></div>
+    <div class="stephead">
+      <span class="steptype amber" data-i18n="type_action">Action</span>
+      <div class="dots"><span class="done"></span><span class="done"></span><span class="done"></span><span class="cur"></span></div>
+      <button class="listen">🔊</button>
+    </div>
+    <div class="scroll">
+      <div class="action">
+        <div class="action-ic">
+          <!-- Simple blower icon -->
+          <svg viewBox="0 0 80 80" width="60" height="60">
+            <rect x="14" y="22" width="48" height="40" rx="4" fill="#193458"/>
+            <circle cx="38" cy="42" r="11" fill="#fff"/>
+            <circle cx="38" cy="42" r="3" fill="#193458"/>
+            <path d="M38 33 L43 42 L38 51 L33 42 Z" fill="#193458"/>
+            <path d="M64 36 L74 36 M64 42 L74 42 M64 48 L74 48" stroke="#193458" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="22" cy="30" r="3" fill="#1F9D55"/>
+          </svg>
+        </div>
+        <div class="action-title" data-i18n="action_title">Turn on the blower</div>
+        <div class="action-sub" data-i18n="action_sub">Switch ON Aeration Blower-1 on the panel. Air will return to the tank.</div>
+        <div class="safety">
+          <span>⚠️</span>
+          <span data-i18n="safety_text"><b>Safety:</b> The panel green light must be on before switching ON. Photo required.</span>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:13px;color:var(--ink-3);margin-top:14px;font-weight:600" data-i18n="estimated">Estimated time: 2 min</div>
+    </div>
+    <div class="cta-bar">
+      <button class="btn primary" onclick="go('verify')" data-i18n="cta_done_photo">📷 Done · Take photo</button>
+    </div>
+  </section>
+
+  <!-- ========== VERIFICATION ========== -->
+  <section class="screen" id="s-verify">
+    <div class="statusbar"><span></span><span data-i18n="verification">Verification</span></div>
+    <div class="eqchip"><span class="dot brand"></span><span data-i18n="eqchip_aeration">Aeration Tank · AT-01</span></div>
+    <div class="stephead">
+      <span class="steptype" data-i18n="type_verify">Verification</span>
+      <div class="dots"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span></div>
+      <button class="listen">🔊</button>
+    </div>
+    <div class="q" data-i18n="verify_q">Waiting for DO to return to normal…</div>
+    <div class="scroll">
+      <div class="gauge">
+        <svg viewBox="0 0 220 130">
+          <!-- background arc -->
+          <path d="M20,110 A90,90 0 0,1 200,110" fill="none" stroke="#E4E8EF" stroke-width="16" stroke-linecap="round"/>
+          <!-- coloured arc segments -->
+          <path d="M20,110 A90,90 0 0,1 75,30" fill="none" stroke="#D64545" stroke-width="16" stroke-linecap="round"/>
+          <path d="M75,30 A90,90 0 0,1 145,30" fill="none" stroke="#1F9D55" stroke-width="16" stroke-linecap="round"/>
+          <path d="M145,30 A90,90 0 0,1 200,110" fill="none" stroke="#E8941A" stroke-width="16" stroke-linecap="round"/>
+          <g id="needle" transform="rotate(-60 110 110)" style="transition:transform 1.2s ease-out">
+            <line x1="110" y1="110" x2="110" y2="38" stroke="#193458" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="110" cy="110" r="7" fill="#193458"/>
+          </g>
+          <text x="110" y="128" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="22" font-weight="800" fill="#193458" id="verVal">0.8 mg/L</text>
+        </svg>
+        <div class="timer" id="verTimer">02:00</div>
+        <div class="timer-lbl" data-i18n="verify_target">Target: 2.0 mg/L or higher</div>
+      </div>
+      <div class="verify-info">
+        <span style="font-size:22px">💨</span>
+        <span data-i18n="verify_info">Blower is on. Bacteria need 1-2 min to recover.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SUCCESS ========== -->
+  <section class="screen" id="s-success">
+    <div class="statusbar"><span></span><span></span></div>
+    <div class="scroll">
+      <div class="success">
+        <div class="check">
+          <svg viewBox="0 0 60 60" width="56" height="56"><circle cx="30" cy="30" r="28" fill="#1F9D55"/><path d="M18 30 L27 39 L44 22" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2 data-i18n="success_title">Well done!</h2>
+        <p data-i18n="success_sub">Issue resolved · DO is now 2.4 mg/L</p>
+        <div class="mttr">
+          <div class="it"><div class="v">1:24</div><div class="l" data-i18n="mttr_diag">Diagnosis</div></div>
+          <div class="it"><div class="v">2:10</div><div class="l" data-i18n="mttr_fix">Fix</div></div>
+          <div class="it"><div class="v">1:45</div><div class="l" data-i18n="mttr_norm">Normalize</div></div>
+        </div>
+        <div class="confirm-q" data-i18n="confirm_q">Was this the right cause?</div>
+        <div class="confirm-list">
+          <button class="btn ghost" style="justify-content:flex-start" onclick="go('home')"><span style="margin-right:8px">✅</span><span data-i18n="confirm_yes">Yes — that was it</span></button>
+          <button class="btn ghost" style="justify-content:flex-start" onclick="go('home')"><span style="margin-right:8px">🤔</span><span data-i18n="confirm_partial">Yes, but something else too</span></button>
+          <button class="btn ghost" style="justify-content:flex-start" onclick="go('home')"><span style="margin-right:8px">❌</span><span data-i18n="confirm_no">No — different cause</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== REASSIGN ========== -->
+  <section class="screen" id="s-reassign">
+    <div class="statusbar"><a class="back" onclick="go('home')">‹</a><span data-i18n="reassign">Reassign</span></div>
+    <div class="q" data-i18n="reassign_q">Who should take this?</div>
+    <div class="scroll">
+      <div class="rlist">
+        <button class="ritem"><div class="ic">👷</div><div><div class="t" data-i18n="reassign_1_t">Next Shift</div><div class="s" data-i18n="reassign_1_s">8 PM · Rajesh</div></div></button>
+        <button class="ritem"><div class="ic">🧑‍🔧</div><div><div class="t" data-i18n="reassign_2_t">Site Engineer</div><div class="s" data-i18n="reassign_2_s">Sharma ji · available now</div></div></button>
+        <button class="ritem"><div class="ic">👨‍💼</div><div><div class="t" data-i18n="reassign_3_t">Supervisor</div><div class="s" data-i18n="reassign_3_s">Call immediately</div></div></button>
+      </div>
+    </div>
+    <div class="cta-bar"><button class="btn primary" onclick="go('home')" data-i18n="cta_send">Send</button></div>
+  </section>
+
+  <!-- ========== PHOTO ========== -->
+  <section class="screen" id="s-photo">
+    <div class="statusbar"><a class="back" onclick="go('home')">‹</a><span data-i18n="cta_photo_short">Send photo</span></div>
+    <div class="scroll">
+      <div style="padding:0 20px">
+        <div class="photo-frame">
+          <div style="text-align:center">
+            <div style="font-size:64px">📷</div>
+            <div style="font-size:13px;opacity:.8;margin-top:8px;font-weight:600" data-i18n="tap_capture">Tap to capture</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-2);margin-top:14px;font-weight:500" data-i18n="photo_hint">Show the Aeration Tank surface and bubbles. Supervisor will see this with alert context.</p>
+      </div>
+    </div>
+    <div class="cta-bar"><button class="btn primary" onclick="go('home');setTimeout(()=>alert(T.photo_sent),200)" data-i18n="cta_send_super">Send to Supervisor</button></div>
+  </section>
+
+  <!-- Shared mascot symbol -->
+  <svg width="0" height="0" style="position:absolute"><defs>
+    <symbol id="mascot" viewBox="0 0 40 40">
+      <path d="M20 4 C12 14 6 22 6 28 a14 14 0 0 0 28 0 c0-6-6-14-14-24z" fill="#193458"/>
+      <circle cx="15" cy="24" r="2" fill="#fff"/>
+      <circle cx="25" cy="24" r="2" fill="#fff"/>
+      <path d="M16 30 Q20 33 24 30" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs></svg>
+</div>
+
+<!-- Language modal -->
+<div class="modal-bg" id="langModal">
+  <div class="modal">
+    <h2>Choose your language</h2>
+    <p>अपनी भाषा चुनें</p>
+    <div class="lang-grid">
+      <button class="lang active" id="lang-en" onclick="setLang('en')">
+        <div class="big">English</div>
+        <div class="small">Default</div>
+      </button>
+      <button class="lang" id="lang-hi" onclick="setLang('hi')">
+        <div class="big">हिंदी</div>
+        <div class="small">Hindi</div>
+      </button>
+    </div>
+    <button class="btn primary" onclick="closeLang()" id="langContinue">Continue</button>
+  </div>
+</div>
+
+<script>
+// Translation dictionary
+const STR = {
+  en: {
+    crumb_plant:"Plant", crumb_section:"Aeration", crumb_issue:"Tank · Issue",
+    crumb_back:"Aeration Tank", crumb_plan:"Diagnostic plan",
+    new_alert:"New alert · 8 min ago",
+    eyebrow:"Aeration Section · Primary",
+    focal_title:"Aeration Tank", focal_sub:"Oxygen is low",
+    status_pill:"DO Low",
+    do_label:"DO (Sensor A)", do_normal:"Normal: 2.0 — 4.0",
+    mlss_label:"MLSS", mlss_normal:"Normal: 3,000 — 4,000",
+    ccu_cause:"Low oxygen in the tank",
+    ccu_cons:"Bacteria can die · effluent will degrade",
+    ccu_urg:"Running 8 min · check now",
+    home_bubble:"Oxygen is low in the Aeration Tank. Let's check together — start the diagnosis.",
+    cta_start:"Start the check", cta_reassign:"↪ Reassign", cta_photo:"📷 Send photo",
+    preview_bubble:"4 quick checks · about 5 minutes",
+    preview_q:"What we'll check",
+    prev_1_t:"Look at the tank", prev_1_s:"Are there enough bubbles?",
+    prev_2_t:"Is the blower running?", prev_2_s:"Check the panel light",
+    prev_3_t:"Check the air valve", prev_3_s:"Open or closed",
+    prev_4_t:"Find the cause", prev_4_s:"Root cause + fix",
+    prev_likely:"Most likely causes",
+    rc_1:"Blower stopped", rc_2:"Diffuser fouled", rc_3:"Air valve closed", rc_other:"Other",
+    cta_begin:"Begin",
+    step_1_of_4:"Step 1 of 4", step_2_of_4:"Step 2 of 4", skip:"Skip",
+    eqchip_aeration:"Aeration Tank · AT-01", eqchip_blower:"Aeration Blower-1",
+    type_observation:"Observation", type_auto:"🤖 Auto-check",
+    type_action:"Action", type_verify:"Verification",
+    step1_q:"Do you see enough bubbles in the tank?",
+    step1_sub:"Look from the top of the tank",
+    bubbles_normal:"NORMAL", bubbles_low:"LOW", or:"or",
+    yn_yes_bubbles:"Yes, bubbles are normal", yn_no_bubbles:"No, very few bubbles",
+    dont_know:"I don't know",
+    step2_q:"Reading blower status…",
+    blower_stopped:"Stopped",
+    current_now:"Current:", current_normal:"Normal: 12 A",
+    last_reading:"Last reading: 8 sec ago",
+    next_5s:"Next step in 5 sec",
+    cta_next:"Continue", flag_sensor:"🚩 This doesn't look right",
+    cause_found:"Cause found",
+    rc_bubble:"Found the cause. Let's fix it now.",
+    cap_rc:"Root cause",
+    rc_title:"Blower was off", rc_sub:"Aeration Blower-1 not running",
+    rc_reasoning:"No blower means no air to the tank. Bacteria couldn't get oxygen, so the DO sensor dropped to 0.8 mg/L.",
+    sensor_a:"Sensor A:", fix_via:"Fix via:", blower_current:"Blower current",
+    cta_fix:"Start the fix", cta_disagree:"I don't agree",
+    now_fix:"Now let's fix it",
+    action_title:"Turn on the blower",
+    action_sub:"Switch ON Aeration Blower-1 on the panel. Air will return to the tank.",
+    safety_text:"<b>Safety:</b> The panel green light must be on before switching ON. Photo required.",
+    estimated:"Estimated time: 2 min",
+    cta_done_photo:"📷 Done · Take photo",
+    verification:"Verification", verify_q:"Waiting for DO to return to normal…",
+    verify_target:"Target: 2.0 mg/L or higher",
+    verify_info:"Blower is on. Bacteria need 1-2 min to recover.",
+    success_title:"Well done!", success_sub:"Issue resolved · DO is now 2.4 mg/L",
+    mttr_diag:"Diagnosis", mttr_fix:"Fix", mttr_norm:"Normalize",
+    confirm_q:"Was this the right cause?",
+    confirm_yes:"Yes — that was it",
+    confirm_partial:"Yes, but something else too",
+    confirm_no:"No — different cause",
+    reassign:"Reassign", reassign_q:"Who should take this?",
+    reassign_1_t:"Next Shift", reassign_1_s:"8 PM · Rajesh",
+    reassign_2_t:"Site Engineer", reassign_2_s:"Sharma ji · available now",
+    reassign_3_t:"Supervisor", reassign_3_s:"Call immediately",
+    cta_send:"Send",
+    cta_photo_short:"Send photo", tap_capture:"Tap to capture",
+    photo_hint:"Show the Aeration Tank surface and bubbles. Supervisor will see this with alert context.",
+    cta_send_super:"Send to Supervisor",
+    photo_sent:"Sent to Sharma ji ✓",
+    modal_title:"Choose your language",
+    modal_sub:"Select your preferred language",
+    lang_continue:"Continue"
+  },
+  hi: {
+    crumb_plant:"प्लांट", crumb_section:"Aeration", crumb_issue:"टैंक · Issue",
+    crumb_back:"Aeration Tank", crumb_plan:"जाँच की योजना",
+    new_alert:"नया Alert · 8 मि नट पहले",
+    eyebrow:"Aeration Section · Primary",
+    focal_title:"Aeration Tank", focal_sub:"पानी में हवा कम है",
+    status_pill:"DO कम",
+    do_label:"हवा (Sensor A)", do_normal:"सामान्य: 2.0 — 4.0",
+    mlss_label:"MLSS", mlss_normal:"सामान्य: 3,000 — 4,000",
+    ccu_cause:"टैंक में हवा कम है",
+    ccu_cons:"Bacteria मर सकते हैं · पानी ख़राब होगा",
+    ccu_urg:"8 मि नट से चल रहा है · अभी देखें",
+    home_bubble:"Aeration टैंक में हवा कम है। चलि ए मि लकर देखते हैं — जाँच शुरू करते हैं।",
+    cta_start:"जाँच शुरू करें", cta_reassign:"↪ कि सी और को दें", cta_photo:"📷 फ़ोटो भेजें",
+    preview_bubble:"4 छोटी जाँच · लगभग 5 मि नट",
+    preview_q:"क्या-क्या देखेंगे",
+    prev_1_t:"टैंक देखें", prev_1_s:"बुलबुले पूरे आ रहे हैं?",
+    prev_2_t:"Blower चालू है?", prev_2_s:"Panel की light देखें",
+    prev_3_t:"हवा का valve देखें", prev_3_s:"खुला है या बंद",
+    prev_4_t:"कारण मि लेगा", prev_4_s:"Root cause + fix",
+    prev_likely:"सबसे सम्भावि त कारण",
+    rc_1:"Blower बंद", rc_2:"Diffuser में जमावट", rc_3:"हवा का valve बंद", rc_other:"अन्य",
+    cta_begin:"शुरू करें",
+    step_1_of_4:"Step 1 / 4", step_2_of_4:"Step 2 / 4", skip:"छोड़ें",
+    eqchip_aeration:"Aeration टैंक · AT-01", eqchip_blower:"Aeration Blower-1",
+    type_observation:"देखें", type_auto:"🤖 अपने आप जाँच",
+    type_action:"करें", type_verify:"पुष्टि",
+    step1_q:"क्या टैंक में पूरे बुलबुले आ रहे हैं?",
+    step1_sub:"टैंक के ऊपर से देखें",
+    bubbles_normal:"सामान्य", bubbles_low:"कम", or:"या",
+    yn_yes_bubbles:"हाँ, बुलबुले पूरे हैं", yn_no_bubbles:"नहीं, बहुत कम हैं",
+    dont_know:"पता नहीं",
+    step2_q:"Blower की स्थि ति  देखी जा रही है…",
+    blower_stopped:"बंद है",
+    current_now:"अभी:", current_normal:"सामान्य: 12 A",
+    last_reading:"पि छली reading: 8 सेकंड पहले",
+    next_5s:"5 सेकंड में अगला step",
+    cta_next:"आगे बढ़ें", flag_sensor:"🚩 यह सही नहीं है",
+    cause_found:"कारण मि ला",
+    rc_bubble:"कारण मि ल गया। अब इसे ठीक करते हैं।",
+    cap_rc:"कारण",
+    rc_title:"Blower बंद था", rc_sub:"Aeration Blower-1 नहीं चल रहा",
+    rc_reasoning:"Blower बंद होने से टैंक में हवा नहीं गई। Bacteria को oxygen नहीं मि ला, इसलि ए DO sensor 0.8 mg/L पर आ गया।",
+    sensor_a:"Sensor A:", fix_via:"Fix sensor:", blower_current:"Blower current",
+    cta_fix:"Fix शुरू करें", cta_disagree:"मैं सहमत नहीं",
+    now_fix:"अब फ़ि क्स करें",
+    action_title:"Blower चालू करें",
+    action_sub:"Panel पर Aeration Blower-1 का switch ON करें। टैंक में हवा फि र से जाएगी।",
+    safety_text:"<b>सुरक्षा:</b> Switch ON करने से पहले panel का indicator green होना चाहि ए। फ़ोटो ज़रूरी।",
+    estimated:"अनुमानि त समय: 2 मि नट",
+    cta_done_photo:"📷 हो गया · फ़ोटो लें",
+    verification:"पुष्टि", verify_q:"DO normal आती है क्या — रुकें…",
+    verify_target:"Target: 2.0 mg/L या ज़्यादा",
+    verify_info:"Blower चालू हो गया है। Bacteria को 1-2 मि नट लगेंगे।",
+    success_title:"शाबाश!", success_sub:"Issue हल हो गया · DO अब 2.4 mg/L है",
+    mttr_diag:"जाँच", mttr_fix:"Fix", mttr_norm:"सामान्य",
+    confirm_q:"क्या यही कारण था?",
+    confirm_yes:"हाँ — यही कारण था",
+    confirm_partial:"हाँ, लेकि न कुछ और भी था",
+    confirm_no:"नहीं — दूसरा कारण था",
+    reassign:"कि सी और को दें", reassign_q:"कि सको देना है?",
+    reassign_1_t:"अगली Shift", reassign_1_s:"रात 8 बजे · Rajesh",
+    reassign_2_t:"Site Engineer", reassign_2_s:"Sharma जी · अभी available",
+    reassign_3_t:"Supervisor", reassign_3_s:"तुरंत call करें",
+    cta_send:"भेजें",
+    cta_photo_short:"फ़ोटो भेजें", tap_capture:"Tap to capture",
+    photo_hint:"Aeration टैंक की सतह और बुलबुले दि खाएँ। Supervisor को alert context के साथ भेजा जाएगा।",
+    cta_send_super:"Supervisor को भेजें",
+    photo_sent:"Sharma जी को भेज दि या ✓",
+    modal_title:"अपनी भाषा चुनें",
+    modal_sub:"पसंदीदा भाषा चुनें",
+    lang_continue:"आगे बढ़ें"
+  }
+};
+
+let lang = 'en';
+let T = STR.en;
+
+function setLang(l){
+  lang = l;
+  T = STR[l];
+  document.getElementById('lang-en').classList.toggle('active', l==='en');
+  document.getElementById('lang-hi').classList.toggle('active', l==='hi');
+  document.getElementById('langContinue').textContent = T.lang_continue;
+  document.querySelector('#langModal h2').textContent = T.modal_title;
+  document.querySelector('#langModal p').textContent = T.modal_sub;
+  document.getElementById('langSwitch').textContent = l==='en' ? 'हिं' : 'EN';
+  // Apply translations
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(T[key] !== undefined) el.innerHTML = T[key];
+  });
+  document.documentElement.lang = l;
+}
+
+function openLang(){
+  document.getElementById('langModal').style.display = 'flex';
+}
+function closeLang(){
+  document.getElementById('langModal').style.display = 'none';
+}
+
+const device = document.getElementById('device');
+function go(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  const el = document.getElementById('s-'+name);
+  if(el) el.classList.add('on');
+  const sc = el && el.querySelector('.scroll'); if(sc) sc.scrollTop = 0;
+
+  if(name==='step2'){
+    const t = document.getElementById('autoTimer'); if(t){ t.style.width='0'; setTimeout(()=>t.style.width='100%', 50);}
+  }
+  if(name==='verify'){
+    const needle = document.getElementById('needle');
+    const val = document.getElementById('verVal');
+    const timerEl = document.getElementById('verTimer');
+    let p = 0;
+    needle.setAttribute('transform','rotate(-60 110 110)');
+    val.textContent='0.8 mg/L';
+    const iv = setInterval(()=>{
+      p += 1;
+      const doVal = Math.min(2.4, 0.8 + p*0.2);
+      val.textContent = doVal.toFixed(1)+' mg/L';
+      // map 0-5 mg/L to -60deg to +60deg
+      const ang = -60 + (doVal/5)*120;
+      needle.setAttribute('transform',`rotate(${ang} 110 110)`);
+      const t = 120 - p*12;
+      if(doVal>=2.0 || t<=0){
+        clearInterval(iv);
+        timerEl.textContent = lang==='en' ? '✓ Normal' : '✓ सामान्य';
+        setTimeout(()=>go('success'),1000);
+      } else {
+        const mm = Math.floor(t/60), ss = t%60;
+        timerEl.textContent = String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');
+      }
+    }, 600);
+  }
+}
+
+// Init
+setLang('en');
+</script>
+</body>
+</html>
