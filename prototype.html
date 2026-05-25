@@ -218,6 +218,92 @@ body{display:flex;justify-content:center;min-height:100vh;}
 .lang .small{font-size:12px;color:var(--ink-3);margin-top:2px;font-weight:600;}
 
 .lang-switch{position:absolute;top:14px;right:20px;font-size:11px;font-weight:700;color:var(--brand);background:var(--brand-tint);padding:5px 10px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;z-index:10;}
+
+/* ============ Plant homepage ============ */
+.plant-header{padding:8px 20px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.plant-header .name{font-size:18px;font-weight:800;color:var(--brand);letter-spacing:-.02em;line-height:1.2;}
+.plant-header .sub{font-size:11px;color:var(--ink-3);font-weight:600;margin-top:2px;}
+.plant-header .avatar{width:38px;height:38px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px;flex-shrink:0;}
+
+.kpi-row{display:flex;gap:8px;padding:0 20px 12px;}
+.kpi{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;}
+.kpi .l{font-size:10px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.kpi .v{font-size:20px;font-weight:800;color:var(--brand);margin-top:2px;letter-spacing:-.02em;}
+.kpi.alert .v{color:var(--red);}
+.kpi.alert{background:var(--red-tint);border-color:#F2C9C9;}
+
+.plant-canvas-wrap{flex:1;position:relative;background:#F4F6FA;border-top:1px solid var(--line);border-bottom:1px solid var(--line);min-height:0;}
+.plant-canvas{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch;}
+.plant-canvas::-webkit-scrollbar{width:6px;height:6px;}
+.plant-canvas::-webkit-scrollbar-thumb{background:rgba(25,52,88,.18);border-radius:3px;}
+.plant-canvas-hint{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(25,52,88,.85);color:#fff;font-size:10px;font-weight:700;padding:5px 10px;border-radius:999px;letter-spacing:.04em;text-transform:uppercase;pointer-events:none;animation:fadeOut 4s forwards;z-index:5;}
+@keyframes fadeOut{0%,60%{opacity:1}100%{opacity:0}}
+.plant-svg{display:block;}
+
+/* Bottom nav */
+.bnav{display:flex;background:#fff;border-top:1px solid var(--line);padding:6px 8px 14px;flex-shrink:0;}
+.bnav-item{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;cursor:pointer;font-family:inherit;color:var(--ink-3);transition:color .12s;}
+.bnav-item .ic{font-size:20px;line-height:1;}
+.bnav-item .l{font-size:10px;font-weight:700;letter-spacing:.02em;}
+.bnav-item.on{color:var(--brand);}
+.bnav-item .badge{position:absolute;background:var(--red);color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:999px;display:grid;place-items:center;padding:0 4px;margin-left:14px;margin-top:-2px;border:2px solid #fff;}
+.bnav-icon-wrap{position:relative;}
+
+/* Alerts list */
+.alerts-head{padding:14px 20px 4px;}
+.alerts-head h1{margin:0;font-size:24px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.alerts-head .sub{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:2px;}
+
+.seg{display:flex;background:var(--brand-tint);border-radius:12px;padding:4px;margin:14px 20px 0;}
+.seg-btn{flex:1;background:none;border:none;padding:10px 12px;font-family:inherit;font-size:13px;font-weight:700;color:var(--ink-3);cursor:pointer;border-radius:9px;transition:.15s;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:-.01em;}
+.seg-btn.on{background:#fff;color:var(--brand);box-shadow:0 1px 3px rgba(25,52,88,.1);}
+.seg-btn .count{background:rgba(25,52,88,.08);color:var(--brand);font-size:11px;font-weight:800;padding:1px 6px;border-radius:8px;min-width:18px;}
+.seg-btn.on .count{background:var(--brand);color:#fff;}
+
+.alert-list{padding:12px 20px 8px;display:flex;flex-direction:column;gap:10px;}
+.alert-card{display:flex;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s;text-align:left;font-family:inherit;width:100%;padding:0;}
+.alert-card:hover{border-color:var(--brand-tint-2);box-shadow:var(--shadow);}
+.alert-card:active{transform:scale(.99);}
+.alert-stripe{width:4px;flex-shrink:0;}
+.alert-stripe.crit{background:var(--red);}
+.alert-stripe.high{background:var(--amber);}
+.alert-stripe.med{background:#E8C547;}
+.alert-stripe.done{background:var(--green);}
+.alert-body{flex:1;min-width:0;padding:12px 14px;}
+.alert-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.alert-eq{font-size:10px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.alert-time{font-size:10px;color:var(--ink-3);font-weight:600;white-space:nowrap;}
+.alert-title{font-size:15px;font-weight:800;color:var(--brand);margin-top:3px;line-height:1.25;letter-spacing:-.01em;}
+.alert-summary{font-size:12px;color:var(--ink-2);margin-top:4px;font-weight:500;line-height:1.4;}
+.alert-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.severity-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;}
+.severity-crit{background:var(--red-tint);color:var(--red-d);}
+.severity-high{background:var(--amber-tint);color:#8B5A0A;}
+.severity-med{background:#FEF6D9;color:#735C0A;}
+.severity-done{background:var(--green-tint);color:#0F5A30;}
+.alert-foot .arrow{color:var(--ink-3);font-size:14px;}
+.alert-card.live .alert-eq::before{content:"●";color:var(--red);margin-right:5px;animation:pulse 1.4s infinite;}
+
+.empty-state{padding:60px 20px;text-align:center;color:var(--ink-3);}
+.empty-state .ic{font-size:48px;margin-bottom:10px;opacity:.5;}
+.empty-state .t{font-size:14px;font-weight:600;color:var(--ink-2);}
+
+/* Stub issue page */
+.stub-hero{padding:24px 20px 16px;background:linear-gradient(180deg,var(--brand-tint) 0%,#FFFFFF 100%);}
+.stub-hero .eyebrow{font-size:11px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.stub-hero h1{margin:6px 0 6px;font-size:22px;font-weight:800;color:var(--brand);line-height:1.2;letter-spacing:-.02em;}
+.stub-hero .sub{font-size:13px;color:var(--ink-2);font-weight:500;line-height:1.5;}
+.stub-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;font-weight:600;}
+.stub-row:last-child{border-bottom:none;}
+.stub-row span:first-child{color:var(--ink-3);}
+.stub-row span:last-child{color:var(--brand);text-align:right;}
+.stub-flows{margin:0 20px;}
+
+/* Tasks / Profile stubs */
+.coming-soon{padding:80px 20px;text-align:center;}
+.coming-soon .ic{font-size:56px;margin-bottom:12px;opacity:.6;}
+.coming-soon h2{margin:0 0 6px;font-size:20px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.coming-soon p{margin:0;font-size:13px;color:var(--ink-3);font-weight:500;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -225,13 +311,411 @@ body{display:flex;justify-content:center;min-height:100vh;}
 <div class="device" id="device">
   <button class="lang-switch" onclick="openLang()" id="langSwitch">EN</button>
 
-  <!-- ============ HOME ============ -->
-  <section class="screen on" id="s-home">
+  <!-- ============ PLANT HOMEPAGE ============ -->
+  <section class="screen on" id="s-plant">
     <div class="statusbar"><span>9:42</span><span>●●●● 4G</span></div>
+    <div class="plant-header">
+      <div>
+        <div class="name" data-i18n="plant_name">Honda Manesar STP</div>
+        <div class="sub" data-i18n="plant_sub">Today · Day shift · Ramesh K.</div>
+      </div>
+      <div class="avatar">R</div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi alert"><div class="l" data-i18n="kpi_open">Open</div><div class="v">3</div></div>
+      <div class="kpi"><div class="l" data-i18n="kpi_tasks">Tasks</div><div class="v">5</div></div>
+      <div class="kpi"><div class="l" data-i18n="kpi_uptime">Uptime</div><div class="v">94%</div></div>
+    </div>
+
+    <div class="plant-canvas-wrap">
+      <div class="plant-canvas-hint" data-i18n="pan_hint">↔ Drag to explore</div>
+      <div class="plant-canvas">
+        <!-- Larger SVG to enable scrolling in both directions -->
+        <svg class="plant-svg" width="780" height="900" viewBox="0 0 780 900" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#7A8497"/>
+            </marker>
+          </defs>
+
+          <!-- Plant boundary -->
+          <rect x="20" y="20" width="740" height="860" rx="14" fill="#FFFFFF" stroke="#C8D0DD" stroke-width="2" stroke-dasharray="6 6"/>
+          <text x="40" y="48" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#7A8497" letter-spacing="1">PRIMARY TREATMENT</text>
+          <text x="40" y="338" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#7A8497" letter-spacing="1">SECONDARY TREATMENT</text>
+          <text x="40" y="638" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#7A8497" letter-spacing="1">TERTIARY / DISPOSAL</text>
+
+          <!-- Section divider lines -->
+          <line x1="40" y1="320" x2="740" y2="320" stroke="#E4E8EF" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <line x1="40" y1="620" x2="740" y2="620" stroke="#E4E8EF" stroke-width="1.5" stroke-dasharray="3 5"/>
+
+          <!-- Pipe lines (connections) -->
+          <path d="M170 130 L290 130" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M410 130 L530 130" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M610 170 L610 230" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M610 290 L150 290 L150 380" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M270 440 L370 440" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M490 440 L590 440" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M650 500 L650 570 L150 570 L150 670" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M270 720 L370 720" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <path d="M490 720 L590 720" stroke="#A8B0BE" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+          <!-- Blower-1 (top right, healthy) -->
+          <g onclick="openIssue('blower2-trip')" style="cursor:pointer">
+            <rect x="540" y="70" width="140" height="80" rx="10" fill="#FFFFFF" stroke="#193458" stroke-width="2"/>
+            <circle cx="610" cy="110" r="18" fill="none" stroke="#193458" stroke-width="2.5"/>
+            <path d="M610 100 L615 110 L610 120 L605 110 Z" fill="#193458"/>
+            <text x="610" y="140" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#193458">Blower-1</text>
+            <circle cx="664" cy="86" r="6" fill="#1F9D55"/>
+          </g>
+
+          <!-- Bar Screen (top left) -->
+          <g>
+            <rect x="50" y="90" width="120" height="80" rx="10" fill="#FFFFFF" stroke="#193458" stroke-width="2"/>
+            <g stroke="#193458" stroke-width="2">
+              <line x1="80" y1="105" x2="80" y2="155"/>
+              <line x1="95" y1="105" x2="95" y2="155"/>
+              <line x1="110" y1="105" x2="110" y2="155"/>
+              <line x1="125" y1="105" x2="125" y2="155"/>
+              <line x1="140" y1="105" x2="140" y2="155"/>
+            </g>
+            <text x="110" y="180" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#193458">Bar Screen</text>
+            <circle cx="156" cy="106" r="6" fill="#1F9D55"/>
+          </g>
+
+          <!-- EQ Tank (top middle) -->
+          <g>
+            <rect x="290" y="90" width="120" height="80" rx="10" fill="#FFFFFF" stroke="#193458" stroke-width="2"/>
+            <rect x="298" y="110" width="104" height="52" rx="4" fill="#B8D4E3"/>
+            <line x1="298" y1="110" x2="402" y2="110" stroke="#7AABC4" stroke-width="2"/>
+            <text x="350" y="180" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#193458">EQ Tank · EQ-01</text>
+            <circle cx="396" cy="106" r="6" fill="#1F9D55"/>
+          </g>
+
+          <!-- Anaerobic Tank (middle right of primary) -->
+          <g>
+            <rect x="540" y="230" width="140" height="80" rx="10" fill="#FFFFFF" stroke="#193458" stroke-width="2"/>
+            <rect x="548" y="250" width="124" height="52" rx="4" fill="#3F4D66"/>
+            <text x="610" y="282" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="10" font-weight="600" fill="#fff">no O₂</text>
+            <text x="610" y="320" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#193458">Anaerobic · AN-01</text>
+            <circle cx="664" cy="246" r="6" fill="#1F9D55"/>
+          </g>
+
+          <!-- AERATION TANK (active issue, secondary section) -->
+          <g onclick="openIssue('aeration-do')" style="cursor:pointer">
+            <rect x="50" y="380" width="220" height="120" rx="12" fill="#FBEAEA" stroke="#D64545" stroke-width="3"/>
+            <rect x="58" y="412" width="204" height="76" rx="4" fill="#B8D4E3"/>
+            <line x1="58" y1="412" x2="262" y2="412" stroke="#7AABC4" stroke-width="2"/>
+            <!-- diffuser -->
+            <rect x="70" y="478" width="180" height="6" rx="2" fill="#193458"/>
+            <!-- fish -->
+            <g transform="translate(120, 432)"><ellipse cx="0" cy="0" rx="10" ry="5" fill="#193458"/><polygon points="-10,0 -16,-4 -16,4" fill="#193458"/><circle cx="9" cy="0" r="2.5" fill="#fff" stroke="#193458" stroke-width="1"/></g>
+            <g transform="translate(180, 436)"><ellipse cx="0" cy="0" rx="9" ry="4.5" fill="#193458"/><polygon points="-9,0 -14,-4 -14,4" fill="#193458"/></g>
+            <!-- DO badge -->
+            <rect x="180" y="386" width="78" height="22" rx="11" fill="#D64545"/>
+            <text x="219" y="401" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="10" font-weight="800" fill="#fff">DO 0.8 mg/L</text>
+            <text x="160" y="525" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#7A1F1F">Aeration Tank · AT-01</text>
+            <!-- Pulsing red dot -->
+            <circle cx="62" cy="392" r="8" fill="#D64545">
+              <animate attributeName="r" values="8;14;8" dur="1.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;.3;1" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="62" cy="392" r="6" fill="#D64545"/>
+          </g>
+
+          <!-- MBR-1 Tank (active issue) -->
+          <g onclick="openIssue('mbr-turbidity')" style="cursor:pointer">
+            <rect x="370" y="380" width="220" height="120" rx="12" fill="#FBEAEA" stroke="#D64545" stroke-width="3"/>
+            <rect x="378" y="412" width="204" height="76" rx="4" fill="#6B5436"/>
+            <!-- membrane modules -->
+            <rect x="400" y="420" width="20" height="60" rx="2" fill="#475569"/>
+            <rect x="440" y="420" width="20" height="60" rx="2" fill="#475569"/>
+            <rect x="480" y="420" width="20" height="60" rx="2" fill="#475569"/>
+            <rect x="520" y="420" width="20" height="60" rx="2" fill="#475569"/>
+            <!-- turbidity badge -->
+            <rect x="500" y="386" width="78" height="22" rx="11" fill="#D64545"/>
+            <text x="539" y="401" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="10" font-weight="800" fill="#fff">28 NTU</text>
+            <text x="480" y="525" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#7A1F1F">MBR-1 Tank</text>
+            <circle cx="382" cy="392" r="8" fill="#D64545">
+              <animate attributeName="r" values="8;14;8" dur="1.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;.3;1" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="382" cy="392" r="6" fill="#D64545"/>
+          </g>
+
+          <!-- Blower-2 (right of secondary) -->
+          <g>
+            <rect x="590" y="400" width="120" height="80" rx="10" fill="#FFFFFF" stroke="#193458" stroke-width="2"/>
+            <circle cx="650" cy="440" r="18" fill="none" stroke="#193458" stroke-width="2.5"/>
+            <path d="M650 430 L655 440 L650 450 L645 440 Z" fill="#193458"/>
+            <text x="650" y="470" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#193458">Blower-2</text>
+            <circle cx="694" cy="416" r="6" fill="#1F9D55"/>
+          </g>
+
+          <!-- Clarifier (active issue - amber severity) -->
+          <g onclick="openIssue('clarifier-scum')" style="cursor:pointer">
+            <rect x="50" y="670" width="220" height="120" rx="12" fill="#FDF1DC" stroke="#E8941A" stroke-width="3"/>
+            <path d="M70 690 L250 690 L210 770 L110 770 Z" fill="#B8D4E3" stroke="#7AABC4" stroke-width="2"/>
+            <line x1="70" y1="690" x2="250" y2="690" stroke="#7AABC4" stroke-width="2"/>
+            <!-- scum layer -->
+            <rect x="70" y="690" width="180" height="6" fill="#A98563"/>
+            <text x="160" y="815" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#7A4A0A">Clarifier · CL-01</text>
+            <circle cx="62" cy="682" r="7" fill="#E8941A">
+              <animate attributeName="r" values="7;12;7" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="62" cy="682" r="5" fill="#E8941A"/>
+          </g>
+
+          <!-- Sludge holding tank -->
+          <g>
+            <rect x="370" y="670" width="220" height="120" rx="12" fill="#FFFFFF" stroke="#193458" stroke-width="2"/>
+            <rect x="378" y="700" width="204" height="80" rx="4" fill="#6B5436"/>
+            <text x="480" y="815" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="12" font-weight="800" fill="#193458">Sludge Tank · SL-01</text>
+            <circle cx="576" cy="676" r="6" fill="#1F9D55"/>
+          </g>
+
+          <!-- Outlet/Disposal -->
+          <g>
+            <rect x="630" y="700" width="80" height="60" rx="10" fill="#193458"/>
+            <path d="M650 720 L680 720 M650 730 L680 730 M650 740 L680 740" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <text x="670" y="780" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" fill="#193458">Disposal</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="bnav">
+      <button class="bnav-item on" onclick="go('plant')"><span class="ic">🏭</span><span class="l" data-i18n="nav_plant">Plant</span></button>
+      <button class="bnav-item" onclick="go('alerts')"><div class="bnav-icon-wrap"><span class="ic">🔔</span><span class="badge">3</span></div><span class="l" data-i18n="nav_alerts">Alerts</span></button>
+      <button class="bnav-item" onclick="go('tasks')"><span class="ic">✓</span><span class="l" data-i18n="nav_tasks">Tasks</span></button>
+      <button class="bnav-item" onclick="go('profile')"><span class="ic">👤</span><span class="l" data-i18n="nav_profile">Me</span></button>
+    </div>
+  </section>
+
+  <!-- ============ ALERTS ============ -->
+  <section class="screen" id="s-alerts">
+    <div class="statusbar"><span>9:42</span><span>●●●● 4G</span></div>
+    <div class="alerts-head">
+      <h1 data-i18n="alerts_h">Alerts</h1>
+      <div class="sub" data-i18n="alerts_sub">Honda Manesar STP</div>
+    </div>
+    <div class="seg">
+      <button class="seg-btn on" id="seg-open" onclick="switchAlertTab('open')"><span data-i18n="seg_open">Open</span><span class="count">3</span></button>
+      <button class="seg-btn" id="seg-closed" onclick="switchAlertTab('closed')"><span data-i18n="seg_closed">Closed</span><span class="count">3</span></button>
+    </div>
+
+    <div class="scroll" style="padding-bottom:80px">
+      <!-- OPEN -->
+      <div id="alerts-open">
+        <div class="alert-list">
+          <button class="alert-card live" onclick="openIssue('aeration-do')">
+            <div class="alert-stripe crit"></div>
+            <div class="alert-body">
+              <div class="alert-top">
+                <div class="alert-eq" data-i18n="alert_eq_at01">Aeration Tank · AT-01</div>
+                <div class="alert-time" data-i18n="time_8m">8 min ago</div>
+              </div>
+              <div class="alert-title" data-i18n="alert_aeration_t">DO Low (0.8 mg/L)</div>
+              <div class="alert-summary" data-i18n="alert_aeration_s">Oxygen is low · bacteria can die · effluent will degrade</div>
+              <div class="alert-foot">
+                <span class="severity-pill severity-crit" data-i18n="sev_crit">Critical</span>
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="alert-card live" onclick="openIssue('mbr-turbidity')">
+            <div class="alert-stripe crit"></div>
+            <div class="alert-body">
+              <div class="alert-top">
+                <div class="alert-eq" data-i18n="alert_eq_mbr">MBR-1 Tank</div>
+                <div class="alert-time" data-i18n="time_22m">22 min ago</div>
+              </div>
+              <div class="alert-title" data-i18n="alert_mbr_t">Turbidity High (28 NTU)</div>
+              <div class="alert-summary" data-i18n="alert_mbr_s">Membrane outlet water is dirty · discharge quality at risk</div>
+              <div class="alert-foot">
+                <span class="severity-pill severity-crit" data-i18n="sev_crit">Critical</span>
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="alert-card" onclick="openIssue('clarifier-scum')">
+            <div class="alert-stripe high"></div>
+            <div class="alert-body">
+              <div class="alert-top">
+                <div class="alert-eq" data-i18n="alert_eq_cl">Clarifier · CL-01</div>
+                <div class="alert-time" data-i18n="time_1h">1 hr ago</div>
+              </div>
+              <div class="alert-title" data-i18n="alert_clarifier_t">Scum layer formation</div>
+              <div class="alert-summary" data-i18n="alert_clarifier_s">Floating brown layer on clarifier surface · skimmer check needed</div>
+              <div class="alert-foot">
+                <span class="severity-pill severity-high" data-i18n="sev_high">High</span>
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- CLOSED -->
+      <div id="alerts-closed" style="display:none">
+        <div class="alert-list">
+          <button class="alert-card" onclick="openIssue('blower2-trip')">
+            <div class="alert-stripe done"></div>
+            <div class="alert-body">
+              <div class="alert-top">
+                <div class="alert-eq" data-i18n="alert_eq_bl2">Blower-2</div>
+                <div class="alert-time" data-i18n="time_yest">Yesterday</div>
+              </div>
+              <div class="alert-title" data-i18n="alert_blower_t">Blower trip · resolved</div>
+              <div class="alert-summary" data-i18n="alert_blower_s">Thermal trip after 6 hr continuous run · cooled and restarted</div>
+              <div class="alert-foot">
+                <span class="severity-pill severity-done" data-i18n="sev_done">Resolved</span>
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="alert-card" onclick="openIssue('eq-level')">
+            <div class="alert-stripe done"></div>
+            <div class="alert-body">
+              <div class="alert-top">
+                <div class="alert-eq" data-i18n="alert_eq_eq">EQ Tank · EQ-01</div>
+                <div class="alert-time" data-i18n="time_2d">2 days ago</div>
+              </div>
+              <div class="alert-title" data-i18n="alert_eq_t">Level High · resolved</div>
+              <div class="alert-summary" data-i18n="alert_eq_s">Inlet surge from upstream · feed pump auto-throttled</div>
+              <div class="alert-foot">
+                <span class="severity-pill severity-done" data-i18n="sev_done">Resolved</span>
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="alert-card" onclick="openIssue('anaerobic-ph')">
+            <div class="alert-stripe done"></div>
+            <div class="alert-body">
+              <div class="alert-top">
+                <div class="alert-eq" data-i18n="alert_eq_an">Anaerobic · AN-01</div>
+                <div class="alert-time" data-i18n="time_5d">5 days ago</div>
+              </div>
+              <div class="alert-title" data-i18n="alert_an_t">pH Low · resolved</div>
+              <div class="alert-summary" data-i18n="alert_an_s">Acidic shock from inlet · lime dosing increased temporarily</div>
+              <div class="alert-foot">
+                <span class="severity-pill severity-done" data-i18n="sev_done">Resolved</span>
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bnav">
+      <button class="bnav-item" onclick="go('plant')"><span class="ic">🏭</span><span class="l" data-i18n="nav_plant">Plant</span></button>
+      <button class="bnav-item on" onclick="go('alerts')"><div class="bnav-icon-wrap"><span class="ic">🔔</span><span class="badge">3</span></div><span class="l" data-i18n="nav_alerts">Alerts</span></button>
+      <button class="bnav-item" onclick="go('tasks')"><span class="ic">✓</span><span class="l" data-i18n="nav_tasks">Tasks</span></button>
+      <button class="bnav-item" onclick="go('profile')"><span class="ic">👤</span><span class="l" data-i18n="nav_profile">Me</span></button>
+    </div>
+  </section>
+
+  <!-- ============ DUMMY ISSUE STUB ============ -->
+  <section class="screen" id="s-issue-stub">
+    <div class="statusbar"><a class="back" onclick="go('alerts')" style="color:var(--ink);text-decoration:none;font-size:18px;cursor:pointer">‹</a><span id="stubTime">22 min ago</span></div>
     <div class="crumbs">
-      <a onclick="go('home')" data-i18n="crumb_plant">Plant</a><span class="sep">›</span>
-      <a onclick="go('home')" data-i18n="crumb_section">Aeration</a><span class="sep">›</span>
-      <span class="cur" data-i18n="crumb_issue">Tank · Issue</span>
+      <a onclick="go('plant')">Plant</a><span class="sep">›</span>
+      <a onclick="go('alerts')">Alerts</a><span class="sep">›</span>
+      <span class="cur" id="stubCrumb">MBR-1</span>
+    </div>
+
+    <div class="scroll" style="padding-bottom:120px">
+      <div class="stub-hero">
+        <div class="eyebrow" id="stubEq">MBR-1 Tank</div>
+        <h1 id="stubTitle">Turbidity High (28 NTU)</h1>
+        <div class="sub" id="stubDesc">Membrane outlet water is dirty · discharge quality at risk.</div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <span class="severity-pill severity-crit" id="stubSev">Critical</span>
+          <span class="severity-pill" style="background:var(--brand-tint);color:var(--brand)" id="stubStatus">Open</span>
+        </div>
+      </div>
+
+      <div style="padding:16px 20px 8px">
+        <div class="cap" data-i18n="cap_details" style="margin:0 0 10px">Details</div>
+        <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px">
+          <div class="stub-row"><span data-i18n="detail_sensor">Trigger sensor</span><span id="stubSensor">Turbidity AT-01-TUR</span></div>
+          <div class="stub-row"><span data-i18n="detail_value">Current reading</span><span id="stubValue">28 NTU</span></div>
+          <div class="stub-row"><span data-i18n="detail_normal">Normal range</span><span id="stubNormal">&lt; 5 NTU</span></div>
+          <div class="stub-row"><span data-i18n="detail_assigned">Assigned to</span><span id="stubAssigned">You · Ramesh K.</span></div>
+        </div>
+
+        <div class="cap" data-i18n="cap_diag_plan">Diagnostic flows</div>
+      </div>
+      <div class="stub-flows" id="stubFlows"></div>
+    </div>
+
+    <div class="cta-bar" style="position:absolute">
+      <button class="btn primary" onclick="alert(T.coming_soon_flow)" data-i18n="cta_start_stub">Start the check</button>
+      <div class="btn-row">
+        <button class="btn sec" onclick="go('reassign')" data-i18n="cta_reassign">↪ Reassign</button>
+        <button class="btn sec" onclick="go('photo')" data-i18n="cta_photo">📷 Send photo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TASKS STUB ============ -->
+  <section class="screen" id="s-tasks">
+    <div class="statusbar"><span>9:42</span><span>●●●● 4G</span></div>
+    <div class="alerts-head">
+      <h1 data-i18n="tasks_h">Tasks</h1>
+      <div class="sub" data-i18n="tasks_sub">Routine checks for today</div>
+    </div>
+    <div class="scroll" style="padding-bottom:80px">
+      <div class="coming-soon"><div class="ic">📋</div><h2 data-i18n="cs_tasks_h">Daily tasks</h2><p data-i18n="cs_tasks_p">5 routine checks scheduled · feature coming soon.</p></div>
+    </div>
+    <div class="bnav">
+      <button class="bnav-item" onclick="go('plant')"><span class="ic">🏭</span><span class="l" data-i18n="nav_plant">Plant</span></button>
+      <button class="bnav-item" onclick="go('alerts')"><div class="bnav-icon-wrap"><span class="ic">🔔</span><span class="badge">3</span></div><span class="l" data-i18n="nav_alerts">Alerts</span></button>
+      <button class="bnav-item on" onclick="go('tasks')"><span class="ic">✓</span><span class="l" data-i18n="nav_tasks">Tasks</span></button>
+      <button class="bnav-item" onclick="go('profile')"><span class="ic">👤</span><span class="l" data-i18n="nav_profile">Me</span></button>
+    </div>
+  </section>
+
+  <!-- ============ PROFILE STUB ============ -->
+  <section class="screen" id="s-profile">
+    <div class="statusbar"><span>9:42</span><span>●●●● 4G</span></div>
+    <div class="alerts-head">
+      <h1 data-i18n="profile_h">Profile</h1>
+      <div class="sub">Ramesh K. · Operator</div>
+    </div>
+    <div class="scroll" style="padding-bottom:80px">
+      <div style="padding:20px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px">
+          <div class="avatar" style="width:48px;height:48px;font-size:18px">R</div>
+          <div><div style="font-weight:800;color:var(--brand);font-size:15px">Ramesh K.</div><div style="font-size:11px;color:var(--ink-3);font-weight:600;margin-top:2px">Honda Manesar STP · Day shift</div></div>
+        </div>
+        <button class="ritem" onclick="openLang()"><div class="ic">🌐</div><div><div class="t" data-i18n="prof_lang">Language</div><div class="s" id="profLangVal">English</div></div></button>
+        <button class="ritem"><div class="ic">🔔</div><div><div class="t" data-i18n="prof_notif">Notifications</div><div class="s">3 active alerts</div></div></button>
+        <button class="ritem"><div class="ic">📜</div><div><div class="t" data-i18n="prof_history">My history</div><div class="s">14 issues resolved this month</div></div></button>
+        <button class="ritem"><div class="ic">↩</div><div><div class="t" data-i18n="prof_logout">Sign out</div><div class="s">End shift</div></div></button>
+      </div>
+    </div>
+    <div class="bnav">
+      <button class="bnav-item" onclick="go('plant')"><span class="ic">🏭</span><span class="l" data-i18n="nav_plant">Plant</span></button>
+      <button class="bnav-item" onclick="go('alerts')"><div class="bnav-icon-wrap"><span class="ic">🔔</span><span class="badge">3</span></div><span class="l" data-i18n="nav_alerts">Alerts</span></button>
+      <button class="bnav-item" onclick="go('tasks')"><span class="ic">✓</span><span class="l" data-i18n="nav_tasks">Tasks</span></button>
+      <button class="bnav-item on" onclick="go('profile')"><span class="ic">👤</span><span class="l" data-i18n="nav_profile">Me</span></button>
+    </div>
+  </section>
+
+  <!-- ============ HOME (issue detail for active Aeration DO Low) ============ -->
+  <section class="screen" id="s-home">
+    <div class="statusbar"><a class="back" onclick="go('alerts')" style="color:var(--ink);text-decoration:none;font-size:18px;cursor:pointer">‹</a><span>9:42</span></div>
+    <div class="crumbs">
+      <a onclick="go('plant')" data-i18n="crumb_plant">Plant</a><span class="sep">›</span>
+      <a onclick="go('alerts')" data-i18n="crumb_section">Alerts</a><span class="sep">›</span>
+      <span class="cur" data-i18n="crumb_issue">Aeration · DO Low</span>
     </div>
     <div class="alert-chip"><span class="pulse"></span><span data-i18n="new_alert">New alert · 8 min ago</span></div>
     <div class="scroll">
@@ -660,6 +1144,48 @@ const STR = {
     cta_send_super:"Send to Supervisor", photo_sent:"Sent to Sharma ji ✓",
     modal_title:"Choose your language", modal_sub:"Select your preferred language", lang_continue:"Continue",
 
+    /* Plant homepage */
+    plant_name:"Honda Manesar STP", plant_sub:"Today · Day shift · Ramesh K.",
+    kpi_open:"Open", kpi_tasks:"Tasks", kpi_uptime:"Uptime",
+    pan_hint:"↔ Drag to explore",
+    nav_plant:"Plant", nav_alerts:"Alerts", nav_tasks:"Tasks", nav_profile:"Me",
+
+    /* Alerts */
+    alerts_h:"Alerts", alerts_sub:"Honda Manesar STP",
+    seg_open:"Open", seg_closed:"Closed",
+    sev_crit:"Critical", sev_high:"High", sev_med:"Medium", sev_done:"Resolved",
+    time_8m:"8 min ago", time_22m:"22 min ago", time_1h:"1 hr ago",
+    time_yest:"Yesterday", time_2d:"2 days ago", time_5d:"5 days ago",
+    alert_eq_at01:"Aeration Tank · AT-01", alert_eq_mbr:"MBR-1 Tank",
+    alert_eq_cl:"Clarifier · CL-01", alert_eq_bl2:"Blower-2",
+    alert_eq_eq:"EQ Tank · EQ-01", alert_eq_an:"Anaerobic · AN-01",
+    alert_aeration_t:"DO Low (0.8 mg/L)",
+    alert_aeration_s:"Oxygen is low · bacteria can die · effluent will degrade",
+    alert_mbr_t:"Turbidity High (28 NTU)",
+    alert_mbr_s:"Membrane outlet water is dirty · discharge quality at risk",
+    alert_clarifier_t:"Scum layer formation",
+    alert_clarifier_s:"Floating brown layer on clarifier surface · skimmer check needed",
+    alert_blower_t:"Blower trip · resolved",
+    alert_blower_s:"Thermal trip after 6 hr continuous run · cooled and restarted",
+    alert_eq_t:"Level High · resolved",
+    alert_eq_s:"Inlet surge from upstream · feed pump auto-throttled",
+    alert_an_t:"pH Low · resolved",
+    alert_an_s:"Acidic shock from inlet · lime dosing increased temporarily",
+
+    /* Stub */
+    cap_details:"Details", cap_diag_plan:"Diagnostic flows",
+    detail_sensor:"Trigger sensor", detail_value:"Current reading",
+    detail_normal:"Normal range", detail_assigned:"Assigned to",
+    cta_start_stub:"Start the check",
+    coming_soon_flow:"This flow is not yet configured for the demo.",
+
+    /* Tasks / Profile */
+    tasks_h:"Tasks", tasks_sub:"Routine checks for today",
+    cs_tasks_h:"Daily tasks", cs_tasks_p:"5 routine checks scheduled · feature coming soon.",
+    profile_h:"Profile",
+    prof_lang:"Language", prof_notif:"Notifications",
+    prof_history:"My history", prof_logout:"Sign out",
+
     /* Step titles */
     step1_title:"Blower is OFF",
     step2_title:"Blower performance",
@@ -816,6 +1342,48 @@ const STR = {
     cta_send_super:"Supervisor को भेजें", photo_sent:"Sharma जी को भेज दिया ✓",
     modal_title:"अपनी भाषा चुनें", modal_sub:"पसंदीदा भाषा चुनें", lang_continue:"आगे बढ़ें",
 
+    /* Plant homepage */
+    plant_name:"Honda Manesar STP", plant_sub:"आज · दिन की shift · Ramesh K.",
+    kpi_open:"खुले", kpi_tasks:"Tasks", kpi_uptime:"Uptime",
+    pan_hint:"↔ Drag करें",
+    nav_plant:"Plant", nav_alerts:"Alerts", nav_tasks:"Tasks", nav_profile:"मैं",
+
+    /* Alerts */
+    alerts_h:"Alerts", alerts_sub:"Honda Manesar STP",
+    seg_open:"खुले", seg_closed:"बंद",
+    sev_crit:"Critical", sev_high:"High", sev_med:"Medium", sev_done:"हो गया",
+    time_8m:"8 मिनट पहले", time_22m:"22 मिनट पहले", time_1h:"1 घंटा पहले",
+    time_yest:"कल", time_2d:"2 दिन पहले", time_5d:"5 दिन पहले",
+    alert_eq_at01:"Aeration टैंक · AT-01", alert_eq_mbr:"MBR-1 टैंक",
+    alert_eq_cl:"Clarifier · CL-01", alert_eq_bl2:"Blower-2",
+    alert_eq_eq:"EQ टैंक · EQ-01", alert_eq_an:"Anaerobic · AN-01",
+    alert_aeration_t:"DO कम (0.8 mg/L)",
+    alert_aeration_s:"हवा कम है · Bacteria मर सकते हैं · पानी ख़राब होगा",
+    alert_mbr_t:"Turbidity ज़्यादा (28 NTU)",
+    alert_mbr_s:"Membrane का पानी गंदा है · quality खतरे में",
+    alert_clarifier_t:"Scum layer बन रही है",
+    alert_clarifier_s:"Clarifier की सतह पर भूरी layer · skimmer देखना है",
+    alert_blower_t:"Blower trip · resolved",
+    alert_blower_s:"6 घंटे लगातार चलने के बाद thermal trip · ठंडा करके restart",
+    alert_eq_t:"Level ज़्यादा · resolved",
+    alert_eq_s:"Upstream से surge · feed pump अपने आप कम हुआ",
+    alert_an_t:"pH कम · resolved",
+    alert_an_s:"Inlet से acidic shock · lime dosing temporarily बढ़ाई",
+
+    /* Stub */
+    cap_details:"Details", cap_diag_plan:"Diagnostic flows",
+    detail_sensor:"Trigger sensor", detail_value:"अभी का reading",
+    detail_normal:"सामान्य range", detail_assigned:"असाइन है",
+    cta_start_stub:"जाँच शुरू करें",
+    coming_soon_flow:"यह flow demo के लिए configure नहीं हुआ है।",
+
+    /* Tasks / Profile */
+    tasks_h:"Tasks", tasks_sub:"आज के routine checks",
+    cs_tasks_h:"Daily tasks", cs_tasks_p:"5 routine checks scheduled · feature जल्द आ रहा है।",
+    profile_h:"प्रोफ़ाइल",
+    prof_lang:"भाषा", prof_notif:"Notifications",
+    prof_history:"मेरी history", prof_logout:"Sign out",
+
     step1_title:"Blower बंद है",
     step2_title:"Blower performance",
     step3_title:"टैंक में बराबर बुलबुले",
@@ -933,6 +1501,85 @@ function go(name){
   if(el) el.classList.add('on');
   const sc = el && el.querySelector('.scroll'); if(sc) sc.scrollTop = 0;
   if(name==='verify') runVerify();
+}
+
+/* ====== Dummy issues (open + closed) ====== */
+const ISSUES = {
+  'aeration-do':{live:true, target:'home'},  // the real, fully-interactive flow
+  'mbr-turbidity':{
+    eq:'MBR-1 Tank', title:'Turbidity High (28 NTU)',
+    desc:'Membrane outlet water is dirty · discharge quality at risk.',
+    sensor:'Turbidity sensor AT-01-TUR', value:'28 NTU', normal:'< 5 NTU',
+    sev:'Critical', sevClass:'severity-crit', status:'Open', time:'22 min ago',
+    flows:['Foam buildup on tank','Membrane fouling','Sensor calibration drift','Backwash failure']
+  },
+  'clarifier-scum':{
+    eq:'Clarifier · CL-01', title:'Scum layer formation',
+    desc:'Floating brown layer on clarifier surface · skimmer check needed.',
+    sensor:'Visual observation', value:'Scum visible', normal:'Clean surface',
+    sev:'High', sevClass:'severity-high', status:'Open', time:'1 hr ago',
+    flows:['Skimmer fault','FOG in influent','Dead biomass accumulation']
+  },
+  'blower2-trip':{
+    eq:'Blower-2', title:'Blower trip · resolved',
+    desc:'Thermal trip after 6 hr continuous run · cooled and restarted.',
+    sensor:'Motor current', value:'0 A (was 14 A)', normal:'8 — 12 A',
+    sev:'Resolved', sevClass:'severity-done', status:'Closed', time:'Yesterday',
+    flows:['Thermal overload','Motor health check','Cooling fan inspection']
+  },
+  'eq-level':{
+    eq:'EQ Tank · EQ-01', title:'Level High · resolved',
+    desc:'Inlet surge from upstream · feed pump auto-throttled.',
+    sensor:'Level transmitter', value:'92% (was)', normal:'40 — 75%',
+    sev:'Resolved', sevClass:'severity-done', status:'Closed', time:'2 days ago',
+    flows:['Inlet surge handling','Pump throttle check','Bypass valve verify']
+  },
+  'anaerobic-ph':{
+    eq:'Anaerobic · AN-01', title:'pH Low · resolved',
+    desc:'Acidic shock from inlet · lime dosing increased temporarily.',
+    sensor:'pH probe AN-01-PH', value:'5.4 (was)', normal:'6.8 — 7.2',
+    sev:'Resolved', sevClass:'severity-done', status:'Closed', time:'5 days ago',
+    flows:['Inlet pH check','Lime dosing pump','Buffer capacity test']
+  }
+};
+
+function openIssue(id){
+  const iss = ISSUES[id];
+  if(!iss) return;
+  if(iss.live){ go('home'); return; }
+  // Populate stub
+  document.getElementById('stubCrumb').textContent = iss.eq.split('·')[0].trim();
+  document.getElementById('stubEq').textContent = iss.eq;
+  document.getElementById('stubTitle').textContent = iss.title;
+  document.getElementById('stubDesc').textContent = iss.desc;
+  document.getElementById('stubSensor').textContent = iss.sensor;
+  document.getElementById('stubValue').textContent = iss.value;
+  document.getElementById('stubNormal').textContent = iss.normal;
+  document.getElementById('stubTime').textContent = iss.time;
+  const sev = document.getElementById('stubSev');
+  sev.className = 'severity-pill ' + iss.sevClass;
+  sev.textContent = iss.sev;
+  const st = document.getElementById('stubStatus');
+  st.textContent = iss.status;
+  st.style.background = iss.status==='Open' ? 'var(--brand-tint)' : 'var(--green-tint)';
+  st.style.color = iss.status==='Open' ? 'var(--brand)' : '#0F5A30';
+  // Render dummy flows
+  const fwrap = document.getElementById('stubFlows');
+  fwrap.innerHTML = iss.flows.map((f,i)=>`
+    <div style="display:flex;gap:12px;align-items:center;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;">
+      <div style="width:28px;height:28px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0">${i+1}</div>
+      <div style="flex:1;font-weight:700;font-size:13.5px;color:var(--brand)">${f}</div>
+      <span style="color:var(--ink-3);font-size:14px">›</span>
+    </div>
+  `).join('');
+  go('issue-stub');
+}
+
+function switchAlertTab(tab){
+  document.getElementById('seg-open').classList.toggle('on', tab==='open');
+  document.getElementById('seg-closed').classList.toggle('on', tab==='closed');
+  document.getElementById('alerts-open').style.display = tab==='open' ? 'block' : 'none';
+  document.getElementById('alerts-closed').style.display = tab==='closed' ? 'block' : 'none';
 }
 
 function startDiagnostic(){
