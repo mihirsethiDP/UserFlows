@@ -493,6 +493,103 @@ body{display:flex;justify-content:center;min-height:100vh;}
 .coming-soon .ic{font-size:56px;margin-bottom:12px;opacity:.6;}
 .coming-soon h2{margin:0 0 6px;font-size:20px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
 .coming-soon p{margin:0;font-size:13px;color:var(--ink-3);font-weight:500;line-height:1.5;}
+
+/* ============================================================
+   ===== UX LAWS LAYER · applied across the prototype =====
+   ============================================================ */
+
+/* Global motion tokens (Doherty: <400ms responses) */
+:root{
+  --t-fast:120ms cubic-bezier(.4,0,.2,1);
+  --t-med:220ms cubic-bezier(.4,0,.2,1);
+  --t-slow:320ms cubic-bezier(.4,0,.2,1);
+}
+.screen{animation:screenFade 220ms ease-out;}
+@keyframes screenFade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+/* Press feedback (Doherty + Aesthetic Usability) */
+.btn:active, .ynbtn:active, .stat:active, .sensor-card:active, .alert-card:active, .tile:active, .ritem:active, .flow-row:active, .ynbtn:active, .ritem:active, .previtem:active{transform:scale(.985);}
+.btn, .ynbtn, .stat, .sensor-card, .alert-card, .tile, .ritem, .ynbtn, .previtem{transition:transform var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);}
+
+/* Fitt's Law: bigger primary CTA + bottom nav within thumb reach */
+.cta-bar .btn.primary{min-height:56px;font-size:16px;}
+.bnav-item{min-height:60px;padding:10px 4px 14px;}
+.bnav-item .ic{font-size:22px;}
+.btn{min-height:44px;}
+
+/* Von Restorff: critical alert breathing glow on home stat */
+.stat.danger{position:relative;}
+.stat.danger::after{content:"";position:absolute;inset:-2px;border-radius:14px;border:2px solid var(--red);opacity:0;animation:vrGlow 2.4s ease-in-out infinite;pointer-events:none;}
+@keyframes vrGlow{0%,100%{opacity:0;transform:scale(1);}50%{opacity:.45;transform:scale(1.02);}}
+
+/* Pull-to-refresh hint (Jakob: familiar mobile pattern) */
+.pull-hint{display:flex;justify-content:center;align-items:center;gap:8px;padding:10px 20px 4px;font-size:11px;color:var(--ink-3);font-weight:600;opacity:.7;}
+.pull-hint .arr{display:inline-block;animation:pullArrow 1.6s ease-in-out infinite;}
+@keyframes pullArrow{0%,100%{transform:translateY(0);}50%{transform:translateY(3px);}}
+
+/* Count-up animation for stats (Aesthetic Usability) */
+.stat .v{font-variant-numeric:tabular-nums;}
+
+/* Skeleton shimmer (Doherty + Aesthetic) */
+@keyframes shimmer{from{background-position:-200px 0;}to{background-position:200px 0;}}
+
+/* Suggested label (Tesler's Law: smart defaults made visible) */
+.suggested{display:inline-flex;align-items:center;gap:4px;background:var(--brand-tint);color:var(--brand);font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;margin-left:6px;vertical-align:middle;}
+.suggested::before{content:"✦";}
+
+/* More-actions sheet (Hick + Cognitive load: collapsed by default) */
+.more-bg{position:fixed;inset:0;background:rgba(14,26,46,.45);z-index:65;display:none;justify-content:center;align-items:flex-end;backdrop-filter:blur(2px);animation:screenFade .15s;}
+.more-bg.on{display:flex;}
+.more-sheet{width:100%;max-width:420px;background:#fff;border-radius:24px 24px 0 0;padding:18px 20px 28px;box-shadow:var(--shadow-lg);animation:slideUp .22s ease-out;}
+.more-sheet .handle{width:36px;height:4px;background:var(--line-2);border-radius:2px;margin:0 auto 16px;}
+.more-sheet h3{margin:0 0 14px;font-size:16px;font-weight:800;color:var(--brand);letter-spacing:-.01em;}
+.more-row{display:flex;align-items:center;gap:14px;padding:14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;margin-bottom:8px;font-family:inherit;width:100%;cursor:pointer;text-align:left;color:var(--ink);}
+.more-row:active{transform:scale(.99);}
+.more-row .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-tint);display:grid;place-items:center;font-size:20px;flex-shrink:0;}
+.more-row .t{font-weight:800;font-size:14px;color:var(--brand);}
+.more-row .s{font-size:11px;color:var(--ink-3);margin-top:2px;font-weight:600;}
+
+/* Peak-end: confetti on success */
+.confetti{position:absolute;width:8px;height:14px;top:-20px;border-radius:2px;opacity:0;animation:confettiFall 1800ms ease-in forwards;pointer-events:none;}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(420px) rotate(540deg);}}
+.success .check{animation:checkPop 600ms cubic-bezier(.34,1.56,.64,1);}
+@keyframes checkPop{0%{transform:scale(0);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
+.success h2{animation:fadeUp .6s .2s both;}
+.success p{animation:fadeUp .6s .35s both;}
+.success .mttr{animation:fadeUp .6s .5s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* UX Lab toggle button (floating) */
+.uxlab-toggle{position:fixed;bottom:96px;right:18px;width:48px;height:48px;border-radius:24px;background:linear-gradient(135deg,#2A4D7F,#193458);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;font-weight:800;font-size:13px;letter-spacing:.04em;box-shadow:0 8px 22px rgba(25,52,88,.32);z-index:60;font-family:inherit;transition:transform var(--t-fast);}
+.uxlab-toggle:active{transform:scale(.94);}
+.uxlab-toggle.on{background:linear-gradient(135deg,#E8941A,#C97812);}
+
+/* UX Lab annotations (badges that pin to elements when lab is on) */
+.uxbadge{position:absolute;background:#1B1F2E;color:#fff;font-size:9px;font-weight:800;padding:3px 7px 3px 6px;border-radius:6px;letter-spacing:.02em;text-transform:uppercase;z-index:55;pointer-events:none;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.18);display:none;opacity:0;transition:opacity var(--t-fast);}
+.uxbadge::before{content:"●";color:#FFD43A;margin-right:3px;font-size:8px;}
+.uxlab-on .uxbadge{display:inline-block;opacity:1;}
+
+/* UX Lab info sheet */
+.uxsheet-bg{position:fixed;inset:0;background:rgba(14,26,46,.55);z-index:75;display:none;justify-content:center;align-items:flex-end;backdrop-filter:blur(3px);}
+.uxsheet-bg.on{display:flex;}
+.uxsheet{width:100%;max-width:420px;background:#fff;border-radius:24px 24px 0 0;padding:18px 20px 28px;box-shadow:var(--shadow-lg);max-height:84vh;overflow-y:auto;animation:slideUp .25s ease-out;}
+.uxsheet .handle{width:36px;height:4px;background:var(--line-2);border-radius:2px;margin:0 auto 14px;}
+.uxsheet h2{margin:0 0 4px;font-size:20px;font-weight:800;color:var(--brand);letter-spacing:-.02em;}
+.uxsheet .sub{font-size:12px;color:var(--ink-3);font-weight:500;margin-bottom:16px;}
+.uxsheet .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--brand-tint);border-radius:12px;margin-bottom:14px;}
+.uxsheet .toggle-row .lbl{font-size:13px;font-weight:700;color:var(--brand);}
+.uxsheet .toggle{position:relative;width:44px;height:26px;background:var(--line-2);border-radius:13px;transition:background var(--t-fast);cursor:pointer;}
+.uxsheet .toggle.on{background:var(--brand);}
+.uxsheet .toggle .nub{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform var(--t-fast);box-shadow:0 1px 3px rgba(0,0,0,.15);}
+.uxsheet .toggle.on .nub{transform:translateX(18px);}
+
+.uxlaw-list{display:flex;flex-direction:column;gap:8px;}
+.uxlaw-item{padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+.uxlaw-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:800;margin-right:8px;}
+.uxlaw-h{font-size:13.5px;font-weight:800;color:var(--brand);letter-spacing:-.01em;}
+.uxlaw-h .badge{background:var(--green-tint);color:var(--green);font-size:9px;font-weight:800;padding:2px 6px;border-radius:8px;margin-left:6px;text-transform:uppercase;letter-spacing:.04em;}
+.uxlaw-d{font-size:12px;color:var(--ink-2);font-weight:500;margin-top:5px;line-height:1.45;}
+.uxlaw-d b{color:var(--brand);font-weight:700;}
 </style>
 </head>
 <body>
@@ -512,6 +609,9 @@ body{display:flex;justify-content:center;min-height:100vh;}
     </div>
 
     <div class="home-scroll">
+      <!-- Pull-to-refresh hint (Jakob's Law: familiar mobile pattern) -->
+      <div class="pull-hint"><span class="arr">↓</span><span data-i18n="pull_refresh">Pull down to refresh</span></div>
+
       <!-- Quick stats -->
       <div class="stat-row">
         <div class="stat danger" onclick="go('alerts')">
@@ -1043,10 +1143,7 @@ body{display:flex;justify-content:center;min-height:100vh;}
 
     <div class="cta-bar" style="position:absolute">
       <button class="btn primary" onclick="alert(T.coming_soon_flow)" data-i18n="cta_start_stub">Start the check</button>
-      <div class="btn-row">
-        <button class="btn sec" onclick="go('reassign')" data-i18n="cta_reassign">↪ Reassign</button>
-        <button class="btn sec" onclick="go('photo')" data-i18n="cta_photo">📷 Send photo</button>
-      </div>
+      <button class="btn sec" onclick="openMore()" data-i18n="cta_more">⋯ More actions</button>
     </div>
   </section>
 
@@ -1140,7 +1237,7 @@ body{display:flex;justify-content:center;min-height:100vh;}
         </svg>
         <div class="readouts">
           <div class="readout bad">
-            <div class="lbl" data-i18n="do_label">DO (Sensor A)</div>
+            <div class="lbl"><span data-i18n="do_label">DO (Sensor A)</span><span class="suggested" data-i18n="suggested">Auto</span></div>
             <div class="val">0.8<span class="u">mg/L</span></div>
             <div class="norm" data-i18n="do_normal">Normal: 2.0 — 4.0</div>
           </div>
@@ -1163,10 +1260,7 @@ body{display:flex;justify-content:center;min-height:100vh;}
     </div>
     <div class="cta-bar">
       <button class="btn primary" onclick="startDiagnostic()" data-i18n="cta_start">Start the check</button>
-      <div class="btn-row">
-        <button class="btn sec" onclick="go('reassign')" data-i18n="cta_reassign">↪ Reassign</button>
-        <button class="btn sec" onclick="go('photo')" data-i18n="cta_photo">📷 Send photo</button>
-      </div>
+      <button class="btn sec" id="more-btn" onclick="openMore()" data-i18n="cta_more">⋯ More actions</button>
     </div>
   </section>
 
@@ -1441,6 +1535,169 @@ body{display:flex;justify-content:center;min-height:100vh;}
   </div>
 </div>
 
+<!-- ============ MORE ACTIONS sheet (Hick + Cognitive load) ============ -->
+<div class="more-bg" id="moreBg" onclick="closeMore(event)">
+  <div class="more-sheet" onclick="event.stopPropagation()">
+    <div class="handle"></div>
+    <h3 data-i18n="more_h">More actions</h3>
+    <button class="more-row" onclick="closeMore();go('reassign')">
+      <div class="ic">↪</div>
+      <div><div class="t" data-i18n="more_reassign">Reassign</div><div class="s" data-i18n="more_reassign_s">Send to next shift, engineer, or supervisor</div></div>
+    </button>
+    <button class="more-row" onclick="closeMore();go('photo')">
+      <div class="ic">📷</div>
+      <div><div class="t" data-i18n="more_photo">Send photo to supervisor</div><div class="s" data-i18n="more_photo_s">Auto-attaches alert context</div></div>
+    </button>
+    <button class="more-row" onclick="closeMore();alert(T.mute_msg)">
+      <div class="ic">🔕</div>
+      <div><div class="t" data-i18n="more_mute">Mute notifications · 30 min</div><div class="s" data-i18n="more_mute_s">If you're already on it</div></div>
+    </button>
+  </div>
+</div>
+
+<!-- ============ UX LAB toggle + sheet ============ -->
+<button class="uxlab-toggle" id="uxlabToggle" onclick="openUx()">UX</button>
+<div class="uxsheet-bg" id="uxsheetBg" onclick="closeUx(event)">
+  <div class="uxsheet" onclick="event.stopPropagation()">
+    <div class="handle"></div>
+    <h2 data-i18n="uxlab_h">UX Lab</h2>
+    <div class="sub" data-i18n="uxlab_sub">12 UX laws applied across this prototype. Toggle annotations to see them pinned to elements.</div>
+    <div class="toggle-row">
+      <span class="lbl" data-i18n="uxlab_show">Show annotations on screen</span>
+      <div class="toggle" id="uxToggleNub" onclick="toggleUxAnnotations(this)"><div class="nub"></div></div>
+    </div>
+    <div class="uxlaw-list" id="uxlawList"></div>
+  </div>
+</div>
+
+<script>
+/* ============ UX LAB DATA & LOGIC ============ */
+const UX_LAWS = [
+  {n:'1', law:'Fitt\'s Law', applied:'Primary CTAs are 56px tall · bottom nav 60px · all buttons ≥44px. Sticky CTAs sit in the thumb zone at the bottom of every screen.'},
+  {n:'2', law:'Jakob\'s Law', applied:'Familiar mobile patterns: bottom tab bar, segmented controls for Open/Closed, pull-down hints, slide-up bottom sheets, breadcrumbs.'},
+  {n:'3', law:'Hick\'s Law', applied:'Issue page consolidates secondary actions (Reassign · Photo · Mute) under one More button. Homepage stat tiles compress 3 KPIs into one glance.'},
+  {n:'4', law:'Law of Similarity', applied:'All cards share the same radius/shadow/padding. All status pills follow one pattern: severity stripe + colour + uppercase label.'},
+  {n:'5', law:'Von Restorff Effect', applied:'Each screen has one breathing accent: critical alert glow on the home Open stat, the pulsing red ! on equipment with active issues, the primary CTA tinted.'},
+  {n:'6', law:'Miller\'s Law', applied:'Diagnostic tree limited to 6 root causes (within 7±2). Bottom nav holds 4 items. Stat row holds 3. Homepage chunked into 4 named sections.'},
+  {n:'7', law:'Tesler\'s Law', applied:'Complexity moved to the system: auto-translation, auto-assigned issues, auto-routing on equipment tap, "Suggested" labels mark smart defaults.'},
+  {n:'8', law:'Doherty Threshold', applied:'All screen transitions 220ms · button press feedback 120ms · pull-to-refresh confirm <300ms. No spinner appears for sub-400ms work.'},
+  {n:'9', law:'Law of Proximity', applied:'Spacing scale: 6/8/14/20px. Within-card 8px · between cards 14px · between sections 20px. Stats grouped by colour, sensors by 2-col grid.'},
+  {n:'10', law:'Cognitive Load Theory', applied:'One headline per screen · one primary CTA · plain Hindi-first text · technical jargon replaced (e.g., "Call supervisor" not "Escalation").'},
+  {n:'11', law:'Peak-end Rule', applied:'Success screen has confetti, animated check pop, sequenced fade-up of MTTR + confirm options. Memorable ending to every resolved issue.'},
+  {n:'12', law:'Aesthetic-Usability Effect', applied:'Polish: gradient stat tiles · count-up on numbers · sub-300ms transitions · subtle press scale · drop-shadows on equipment · breathing pulses.'}
+];
+
+function openUx(){
+  const list = document.getElementById('uxlawList');
+  list.innerHTML = UX_LAWS.map(L => `
+    <div class="uxlaw-item">
+      <div class="uxlaw-h"><span class="uxlaw-num">${L.n}</span>${L.law}<span class="badge">applied</span></div>
+      <div class="uxlaw-d">${L.applied}</div>
+    </div>
+  `).join('');
+  document.getElementById('uxsheetBg').classList.add('on');
+}
+function closeUx(e){
+  if(e && e.target.id !== 'uxsheetBg' && e.target !== undefined) return;
+  document.getElementById('uxsheetBg').classList.remove('on');
+}
+
+let uxAnnotationsOn = false;
+function toggleUxAnnotations(el){
+  uxAnnotationsOn = !uxAnnotationsOn;
+  el.classList.toggle('on', uxAnnotationsOn);
+  document.body.classList.toggle('uxlab-on', uxAnnotationsOn);
+  document.getElementById('uxlabToggle').classList.toggle('on', uxAnnotationsOn);
+  if(uxAnnotationsOn){ renderUxBadges(); } else { clearUxBadges(); }
+}
+
+const UX_BADGES = [
+  // selector, label, position (top/bottom + left/right offsets)
+  {sel:'#s-plant .stat.danger', label:'5 · Von Restorff', t:-10, l:-2},
+  {sel:'#s-plant .stat-row', label:'6 · Miller (3 chunks)', t:-22, l:0, container:true},
+  {sel:'#s-plant .sensor-grid', label:'9 · Proximity', t:-22, l:0, container:true},
+  {sel:'#s-plant .bnav', label:'1 · Fitt', t:-22, l:0, container:true},
+  {sel:'#s-home .cta-bar .btn.primary', label:'1 · Fitt (56px)', t:-22, l:0, container:true},
+  {sel:'#s-home .focal', label:'10 · Cognitive load', t:-22, l:0, container:true},
+  {sel:'#more-btn', label:'3 · Hick', t:-22, l:0, container:true},
+  {sel:'#s-alerts .seg', label:'2 · Jakob', t:-22, l:0, container:true},
+  {sel:'#s-success .check', label:'11 · Peak-end', t:-22, l:0, container:true},
+  {sel:'#s-success .success', label:'12 · Aesthetic', t:-22, l:120, container:true},
+  {sel:'.pull-hint', label:'2 · Jakob', t:0, l:0, container:true},
+  {sel:'#s-home .suggested', label:'7 · Tesler', t:-22, l:0, container:true},
+  {sel:'#stepDots', label:'8 · Doherty (<300ms)', t:-22, l:0, container:true},
+  {sel:'.uxlab-toggle', label:'4 · Similarity (every card)', t:-26, l:-130, container:true}
+];
+
+function renderUxBadges(){
+  clearUxBadges();
+  UX_BADGES.forEach(b => {
+    document.querySelectorAll(b.sel).forEach(el => {
+      const badge = document.createElement('span');
+      badge.className = 'uxbadge';
+      badge.textContent = b.label;
+      const parent = el.offsetParent || el.parentElement || document.body;
+      parent.style.position = parent.style.position || 'relative';
+      el.style.position = el.style.position || 'relative';
+      el.appendChild(badge);
+      const t = (b.t!=null)?b.t:-22;
+      const l = (b.l!=null)?b.l:0;
+      badge.style.top = (t<0?'':'') + t + 'px';
+      badge.style.left = l + 'px';
+    });
+  });
+}
+function clearUxBadges(){
+  document.querySelectorAll('.uxbadge').forEach(b => b.remove());
+}
+
+/* ============ MORE actions sheet ============ */
+function openMore(){
+  document.getElementById('moreBg').classList.add('on');
+}
+function closeMore(e){
+  if(e && e.target && e.target.id !== 'moreBg') return;
+  document.getElementById('moreBg').classList.remove('on');
+}
+
+/* ============ Stat count-up (Aesthetic Usability) ============ */
+function countUp(el, to, suffix){
+  const start = performance.now();
+  const dur = 700;
+  const isPct = (to+'').includes('%');
+  const target = parseFloat((to+'').replace(/[^0-9.]/g,''));
+  if(isNaN(target)) return;
+  function tick(now){
+    const p = Math.min(1, (now-start)/dur);
+    const eased = 1 - Math.pow(1-p, 3);
+    const cur = target * eased;
+    el.textContent = (target % 1 === 0 ? Math.round(cur) : cur.toFixed(1)) + (isPct ? '%' : suffix||'');
+    if(p<1) requestAnimationFrame(tick);
+    else el.textContent = to;
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ============ Confetti on success (Peak-end) ============ */
+function fireConfetti(){
+  const successEl = document.querySelector('#s-success .success');
+  if(!successEl) return;
+  successEl.style.position = 'relative';
+  const colors = ['#1F9D55','#E8941A','#D64545','#193458','#2A4D7F','#FFD43A'];
+  for(let i=0;i<26;i++){
+    const c = document.createElement('span');
+    c.className = 'confetti';
+    c.style.left = (10 + Math.random()*80) + '%';
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = (Math.random()*200) + 'ms';
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    successEl.appendChild(c);
+    setTimeout(()=>c.remove(), 2400);
+  }
+}
+
+</script>
+
 <script>
 /* ========== DIAGNOSTIC TREE (from xlsx) ========== */
 const STEPS = [
@@ -1547,6 +1804,16 @@ const STR = {
     ccu_urg:"Running 8 min · check now",
     home_bubble:"Oxygen is low in the Aeration Tank. Let's check together — start the diagnosis.",
     cta_start:"Start the check", cta_reassign:"↪ Reassign", cta_photo:"📷 Send photo",
+    cta_more:"⋯ More actions",
+    pull_refresh:"Pull down to refresh",
+    suggested:"Auto",
+    more_h:"More actions",
+    more_reassign:"Reassign", more_reassign_s:"Send to next shift, engineer, or supervisor",
+    more_photo:"Send photo to supervisor", more_photo_s:"Auto-attaches alert context",
+    more_mute:"Mute notifications · 30 min", more_mute_s:"If you're already on it",
+    mute_msg:"Notifications muted for 30 minutes.",
+    uxlab_h:"UX Lab", uxlab_sub:"12 UX laws applied across this prototype. Toggle annotations to see them pinned to elements.",
+    uxlab_show:"Show annotations on screen",
     preview_bubble:"We'll go through 6 checks — from easiest to hardest. Stop when we find the cause.",
     preview_q:"6 things to check", preview_sub:"Estimated time: 10-15 minutes",
     cta_begin_1:"Start with Step 1",
@@ -1810,6 +2077,16 @@ const STR = {
     ccu_urg:"8 मिनट से चल रहा है · अभी देखें",
     home_bubble:"Aeration टैंक में हवा कम है। चलिए मिलकर देखते हैं — जाँच शुरू करते हैं।",
     cta_start:"जाँच शुरू करें", cta_reassign:"↪ किसी और को दें", cta_photo:"📷 फ़ोटो भेजें",
+    cta_more:"⋯ और options",
+    pull_refresh:"Refresh के लिए नीचे खींचें",
+    suggested:"अपने आप",
+    more_h:"और options",
+    more_reassign:"किसी और को दें", more_reassign_s:"Next shift, engineer या supervisor को भेजें",
+    more_photo:"Supervisor को फ़ोटो भेजें", more_photo_s:"Alert context अपने आप attach होगा",
+    more_mute:"Notifications 30 मिनट के लिए बंद", more_mute_s:"पहले से काम पर हैं तो",
+    mute_msg:"Notifications 30 मिनट के लिए बंद कर दिए।",
+    uxlab_h:"UX Lab", uxlab_sub:"12 UX laws इस prototype में लागू हैं। Annotations toggle करके देखें।",
+    uxlab_show:"Screen पर annotations दिखाएँ",
     preview_bubble:"6 चीज़ें check करेंगे — आसान से मुश्किल तक। कारण मिलते ही रुक जाएंगे।",
     preview_q:"6 चीज़ें check करनी हैं", preview_sub:"अनुमानित समय: 10-15 मिनट",
     cta_begin_1:"Step 1 से शुरू करें",
@@ -2083,6 +2360,18 @@ function go(name){
   if(el) el.classList.add('on');
   const sc = el && el.querySelector('.scroll'); if(sc) sc.scrollTop = 0;
   if(name==='verify') runVerify();
+  if(name==='success') setTimeout(fireConfetti, 250);  // Peak-end rule
+  if(name==='plant') setTimeout(animateStats, 80);     // Aesthetic Usability
+  if(uxAnnotationsOn) setTimeout(renderUxBadges, 120); // refresh annotation positions
+}
+
+/* Animate the three stat numbers on home (Aesthetic Usability) */
+function animateStats(){
+  document.querySelectorAll('#s-plant .stat .v').forEach((el, i) => {
+    const target = el.dataset.target || el.textContent;
+    el.dataset.target = target;
+    countUp(el, target);
+  });
 }
 
 /* ====== Dummy issues (open + closed) ====== */
@@ -2541,6 +2830,7 @@ function runVerify(){
 }
 
 setLang('en');
+setTimeout(animateStats, 250);
 renderPreview();
 </script>
 </body>
